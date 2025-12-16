@@ -10,6 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @State private var selectedTab: Tab = .today
     @State private var showingImportAlert = false
     @State private var importedCount = 0
@@ -67,6 +68,11 @@ struct ContentView: View {
         .tint(AppColors.primary)
         .onAppear {
             importPendingProspects()
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .active {
+                importPendingProspects()
+            }
         }
         .alert("Prospects Imported", isPresented: $showingImportAlert) {
             Button("OK", role: .cancel) { }
