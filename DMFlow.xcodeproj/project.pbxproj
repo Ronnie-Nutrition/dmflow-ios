@@ -1,0 +1,697 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001001 /* DMFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001000 /* DMFlowApp.swift */; };
+		A1000002001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000 /* ContentView.swift */; };
+		A1000003001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000003000 /* Assets.xcassets */; };
+		A1000010001 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010000 /* Prospect.swift */; };
+		A1000011001 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000011000 /* Platform.swift */; };
+		A1000012001 /* FunnelStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012000 /* FunnelStage.swift */; };
+		A1000020001 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000020000 /* TodayView.swift */; };
+		A1000021001 /* PipelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000021000 /* PipelineView.swift */; };
+		A1000022001 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022000 /* SearchView.swift */; };
+		A1000023001 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000023000 /* StatsView.swift */; };
+		A1000024001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024000 /* SettingsView.swift */; };
+		A1000025001 /* ProspectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000025000 /* ProspectDetailView.swift */; };
+		A1000026001 /* AddProspectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000026000 /* AddProspectView.swift */; };
+		A1000027001 /* ProspectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000027000 /* ProspectCard.swift */; };
+		A1000028001 /* ProspectSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000028000 /* ProspectSection.swift */; };
+		A1000030001 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030000 /* ProspectViewModel.swift */; };
+		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
+		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
+		A1000041001 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041000 /* CloudKitService.swift */; };
+		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
+		A1000060001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000060000 /* ShareViewController.swift */; };
+		A1000061001 /* ShareExtensionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000061000 /* ShareExtensionView.swift */; };
+		A1000062001 /* DMFlowShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A1000062000 /* DMFlowShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1000070000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000062100;
+			remoteInfo = DMFlowShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1000080000 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1000062001 /* DMFlowShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1000000100 /* DMFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000001000 /* DMFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMFlowApp.swift; sourceTree = "<group>"; };
+		A1000002000 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000003000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000004000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000005000 /* DMFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DMFlow.entitlements; sourceTree = "<group>"; };
+		A1000010000 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		A1000011000 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		A1000012000 /* FunnelStage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunnelStage.swift; sourceTree = "<group>"; };
+		A1000020000 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		A1000021000 /* PipelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineView.swift; sourceTree = "<group>"; };
+		A1000022000 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		A1000023000 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		A1000024000 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1000025000 /* ProspectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectDetailView.swift; sourceTree = "<group>"; };
+		A1000026000 /* AddProspectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProspectView.swift; sourceTree = "<group>"; };
+		A1000027000 /* ProspectCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectCard.swift; sourceTree = "<group>"; };
+		A1000028000 /* ProspectSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectSection.swift; sourceTree = "<group>"; };
+		A1000030000 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
+		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A1000041000 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
+		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		A1000060000 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A1000061000 /* ShareExtensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionView.swift; sourceTree = "<group>"; };
+		A1000062000 /* DMFlowShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000063000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1000090000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1000090001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000A0000 = {
+			isa = PBXGroup;
+			children = (
+				A10000A0001 /* DMFlow */,
+				A10000A0002 /* DMFlowShareExtension */,
+				A10000A0003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000A0001 /* DMFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A10000A0010 /* App */,
+				A10000A0011 /* Models */,
+				A10000A0012 /* Views */,
+				A10000A0013 /* ViewModels */,
+				A10000A0014 /* Services */,
+				A10000A0015 /* Extensions */,
+				A10000A0016 /* Utilities */,
+				A10000A0017 /* Resources */,
+				A1000003000 /* Assets.xcassets */,
+				A1000004000 /* Info.plist */,
+				A1000005000 /* DMFlow.entitlements */,
+			);
+			path = DMFlow;
+			sourceTree = "<group>";
+		};
+		A10000A0002 /* DMFlowShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				A1000060000 /* ShareViewController.swift */,
+				A1000061000 /* ShareExtensionView.swift */,
+				A1000063000 /* Info.plist */,
+			);
+			path = DMFlowShareExtension;
+			sourceTree = "<group>";
+		};
+		A10000A0003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000100 /* DMFlow.app */,
+				A1000062000 /* DMFlowShareExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000A0010 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A1000001000 /* DMFlowApp.swift */,
+				A1000002000 /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A10000A0011 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000010000 /* Prospect.swift */,
+				A1000011000 /* Platform.swift */,
+				A1000012000 /* FunnelStage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A10000A0012 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10000A0020 /* Today */,
+				A10000A0021 /* Pipeline */,
+				A10000A0022 /* Search */,
+				A10000A0023 /* Stats */,
+				A10000A0024 /* Settings */,
+				A10000A0025 /* Prospect */,
+				A10000A0026 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A10000A0013 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A1000030000 /* ProspectViewModel.swift */,
+				A1000031000 /* StatsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A10000A0014 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A1000040000 /* NotificationService.swift */,
+				A1000041000 /* CloudKitService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A10000A0015 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A10000A0016 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A1000050000 /* AppColors.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A10000A0017 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A10000A0020 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				A1000020000 /* TodayView.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		A10000A0021 /* Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+				A1000021000 /* PipelineView.swift */,
+			);
+			path = Pipeline;
+			sourceTree = "<group>";
+		};
+		A10000A0022 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A1000022000 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		A10000A0023 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				A1000023000 /* StatsView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		A10000A0024 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A1000024000 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		A10000A0025 /* Prospect */ = {
+			isa = PBXGroup;
+			children = (
+				A1000025000 /* ProspectDetailView.swift */,
+				A1000026000 /* AddProspectView.swift */,
+			);
+			path = Prospect;
+			sourceTree = "<group>";
+		};
+		A10000A0026 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A1000027000 /* ProspectCard.swift */,
+				A1000028000 /* ProspectSection.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1000062100 /* DMFlowShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000C0003 /* Build configuration list for PBXNativeTarget "DMFlowShareExtension" */;
+			buildPhases = (
+				A10000B0003 /* Sources */,
+				A1000090001 /* Frameworks */,
+				A10000B0004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DMFlowShareExtension;
+			productName = DMFlowShareExtension;
+			productReference = A1000062000 /* DMFlowShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A10000B0000 /* DMFlow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000C0000 /* Build configuration list for PBXNativeTarget "DMFlow" */;
+			buildPhases = (
+				A10000B0001 /* Sources */,
+				A1000090000 /* Frameworks */,
+				A10000B0002 /* Resources */,
+				A1000080000 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1000070001 /* PBXTargetDependency */,
+			);
+			name = DMFlow;
+			productName = DMFlow;
+			productReference = A1000000100 /* DMFlow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					A1000062100 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					A10000B0000 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A10000C0006 /* Build configuration list for PBXProject "DMFlow" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000A0000;
+			productRefGroup = A10000A0003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000B0000 /* DMFlow */,
+				A1000062100 /* DMFlowShareExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000B0002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000003001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000B0004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000B0001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001001 /* DMFlowApp.swift in Sources */,
+				A1000002001 /* ContentView.swift in Sources */,
+				A1000010001 /* Prospect.swift in Sources */,
+				A1000011001 /* Platform.swift in Sources */,
+				A1000012001 /* FunnelStage.swift in Sources */,
+				A1000020001 /* TodayView.swift in Sources */,
+				A1000021001 /* PipelineView.swift in Sources */,
+				A1000022001 /* SearchView.swift in Sources */,
+				A1000023001 /* StatsView.swift in Sources */,
+				A1000024001 /* SettingsView.swift in Sources */,
+				A1000025001 /* ProspectDetailView.swift in Sources */,
+				A1000026001 /* AddProspectView.swift in Sources */,
+				A1000027001 /* ProspectCard.swift in Sources */,
+				A1000028001 /* ProspectSection.swift in Sources */,
+				A1000030001 /* ProspectViewModel.swift in Sources */,
+				A1000031001 /* StatsViewModel.swift in Sources */,
+				A1000040001 /* NotificationService.swift in Sources */,
+				A1000041001 /* CloudKitService.swift in Sources */,
+				A1000050001 /* AppColors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000B0003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000060001 /* ShareViewController.swift in Sources */,
+				A1000061001 /* ShareExtensionView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1000070001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000062100 /* DMFlowShareExtension */;
+			targetProxy = A1000070000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A10000D0000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A10000D0001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A10000D0002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DMFlow/DMFlow.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlow/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DMFlow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000D0003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DMFlow/DMFlow.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlow/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DMFlow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A10000D0004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlowShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DMFlowShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000D0005 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlowShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DMFlowShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000C0000 /* Build configuration list for PBXNativeTarget "DMFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000D0002 /* Debug */,
+				A10000D0003 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000C0003 /* Build configuration list for PBXNativeTarget "DMFlowShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000D0004 /* Debug */,
+				A10000D0005 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000C0006 /* Build configuration list for PBXProject "DMFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000D0000 /* Debug */,
+				A10000D0001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1000000000 /* Project object */;
+}
