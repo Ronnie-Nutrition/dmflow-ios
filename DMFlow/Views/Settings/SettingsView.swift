@@ -14,12 +14,11 @@ struct SettingsView: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("morningReminderTime") private var morningReminderTime = 9
     @State private var showingDeleteConfirmation = false
-    @State private var showingExportSheet = false
+    @State private var exportFile: ExportFile?
 
     var body: some View {
         NavigationStack {
             List {
-                accountSection
                 notificationsSection
                 dataSection
                 aboutSection
@@ -33,38 +32,12 @@ struct SettingsView: View {
             } message: {
                 Text("Are you sure you want to delete all \(allProspects.count) prospects? This action cannot be undone.")
             }
-        }
-    }
-
-    private var accountSection: some View {
-        Section {
-            HStack {
-                Image(systemName: "person.circle.fill")
-                    .font(.largeTitle)
-                    .foregroundStyle(AppColors.primary)
-
-                VStack(alignment: .leading) {
-                    Text("Sign in with Apple")
-                        .font(.headline)
-                    Text("Sync across devices")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                Button("Sign In") {
-                    // Sign in with Apple implementation
-                }
-                .buttonStyle(.bordered)
+            .sheet(item: $exportFile) { file in
+                ShareSheet(items: [file.url])
             }
-            .padding(.vertical, 4)
-        } header: {
-            Text("Account")
-        } footer: {
-            Text("Sign in to sync your prospects across all your Apple devices.")
         }
     }
+
 
     private var notificationsSection: some View {
         Section {
@@ -101,10 +74,11 @@ struct SettingsView: View {
             }
 
             Button {
-                showingExportSheet = true
+                exportData()
             } label: {
                 Label("Export Data", systemImage: "square.and.arrow.up")
             }
+            .disabled(allProspects.isEmpty)
 
             Button(role: .destructive) {
                 showingDeleteConfirmation = true
@@ -121,20 +95,26 @@ struct SettingsView: View {
             HStack {
                 Text("Version")
                 Spacer()
-                Text("1.0.0")
+                Text(appVersion)
                     .foregroundStyle(.secondary)
             }
 
-            Link(destination: URL(string: "https://dmflow.app/privacy")!) {
-                Label("Privacy Policy", systemImage: "hand.raised")
+            if let privacyURL = URL(string: "https://dmflow.app/privacy") {
+                Link(destination: privacyURL) {
+                    Label("Privacy Policy", systemImage: "hand.raised")
+                }
             }
 
-            Link(destination: URL(string: "https://dmflow.app/support")!) {
-                Label("Support", systemImage: "questionmark.circle")
+            if let supportURL = URL(string: "https://dmflow.app/support") {
+                Link(destination: supportURL) {
+                    Label("Support", systemImage: "questionmark.circle")
+                }
             }
 
-            Link(destination: URL(string: "https://dmflow.app/feedback")!) {
-                Label("Send Feedback", systemImage: "envelope")
+            if let feedbackURL = URL(string: "https://dmflow.app/feedback") {
+                Link(destination: feedbackURL) {
+                    Label("Send Feedback", systemImage: "envelope")
+                }
             }
         } header: {
             Text("About")
@@ -146,11 +126,71 @@ struct SettingsView: View {
         }
     }
 
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "\(version) (\(build))"
+    }
+
     private func deleteAllData() {
         for prospect in allProspects {
             modelContext.delete(prospect)
         }
     }
+
+    private func exportData() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+
+        var csv = "Name,Handle,Platform,Stage,Last Contact,Next Follow-Up,Hot Lead,Notes,Created\n"
+
+        for prospect in allProspects {
+            let name = escapeCsvField(prospect.name)
+            let handle = escapeCsvField(prospect.handle ?? "")
+            let platform = prospect.platform.displayName
+            let stage = prospect.stage.displayName
+            let lastContact = dateFormatter.string(from: prospect.lastContact)
+            let nextFollowUp = prospect.nextFollowUp.map { dateFormatter.string(from: $0) } ?? ""
+            let isHotLead = prospect.isHotLead ? "Yes" : "No"
+            let notes = escapeCsvField(prospect.notes ?? "")
+            let created = dateFormatter.string(from: prospect.createdAt)
+
+            csv += "\(name),\(handle),\(platform),\(stage),\(lastContact),\(nextFollowUp),\(isHotLead),\(notes),\(created)\n"
+        }
+
+        let fileName = "DMFlow_Export_\(dateFormatter.string(from: Date()).replacingOccurrences(of: "/", with: "-")).csv"
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+
+        do {
+            try csv.write(to: tempURL, atomically: true, encoding: .utf8)
+            exportFile = ExportFile(url: tempURL)
+        } catch {
+            print("Export failed: \(error)")
+        }
+    }
+
+    private func escapeCsvField(_ field: String) -> String {
+        if field.contains(",") || field.contains("\"") || field.contains("\n") {
+            return "\"\(field.replacingOccurrences(of: "\"", with: "\"\""))\""
+        }
+        return field
+    }
+}
+
+struct ExportFile: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {
