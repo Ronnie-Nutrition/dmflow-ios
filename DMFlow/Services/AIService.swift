@@ -28,7 +28,7 @@ final class AIService {
         }
 
         guard UsageTracker.shared.canUseAI else {
-            throw AIError.limitReached
+            throw AIError.proRequired
         }
 
         isLoading = true
@@ -36,8 +36,6 @@ final class AIService {
 
         let prompt = buildPrompt(for: prospect)
         let message = try await callOpenAI(prompt: prompt)
-
-        UsageTracker.shared.recordUsage()
 
         return message
     }
@@ -145,7 +143,7 @@ final class AIService {
 
 enum AIError: LocalizedError {
     case noAPIKey
-    case limitReached
+    case proRequired
     case invalidResponse
     case apiError(String)
 
@@ -153,8 +151,8 @@ enum AIError: LocalizedError {
         switch self {
         case .noAPIKey:
             return "AI features require an API key. Contact support for help."
-        case .limitReached:
-            return "You've reached your monthly AI limit. Upgrade to Pro for unlimited access."
+        case .proRequired:
+            return "AI Message Suggestions require DMFlow Pro."
         case .invalidResponse:
             return "Failed to get a response from AI. Please try again."
         case .apiError(let message):

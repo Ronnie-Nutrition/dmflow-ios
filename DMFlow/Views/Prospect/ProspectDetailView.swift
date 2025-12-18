@@ -51,13 +51,13 @@ struct ProspectDetailView: View {
         } message: {
             Text("Are you sure you want to delete \(prospect.name)? This cannot be undone.")
         }
-        .alert("Upgrade to Pro", isPresented: $showingUpgradeAlert) {
+        .alert("Unlock AI Suggestions", isPresented: $showingUpgradeAlert) {
             Button("Maybe Later", role: .cancel) { }
-            Button("Learn More") {
-                // TODO: Show paywall
+            Button("Upgrade to Pro") {
+                // TODO: Show paywall / StoreKit subscription
             }
         } message: {
-            Text("You've used all \(10) free AI messages this month. Upgrade to Pro for unlimited AI suggestions.")
+            Text("Get personalized follow-up messages powered by AI. Upgrade to DMFlow Pro to unlock this feature.")
         }
         .alert("AI Error", isPresented: .init(
             get: { aiError != nil },
@@ -269,9 +269,14 @@ struct ProspectDetailView: View {
                 Spacer()
 
                 if !UsageTracker.shared.isPro {
-                    Text("\(UsageTracker.shared.remainingUses) left")
+                    Text("PRO")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.orange)
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
                 }
             }
 
@@ -377,7 +382,7 @@ struct ProspectDetailView: View {
             } catch let error as AIError {
                 await MainActor.run {
                     isGeneratingMessage = false
-                    if case .limitReached = error {
+                    if case .proRequired = error {
                         showingUpgradeAlert = true
                     } else {
                         aiError = error.localizedDescription
