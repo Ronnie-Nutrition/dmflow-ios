@@ -162,10 +162,10 @@ struct PaywallView: View {
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 16) {
-                if let privacyURL = URL(string: "https://dmflow.app/privacy") {
+                if let privacyURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/privacy/") {
                     Link("Privacy Policy", destination: privacyURL)
                 }
-                if let termsURL = URL(string: "https://dmflow.app/terms") {
+                if let termsURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/privacy/") {
                     Link("Terms of Use", destination: termsURL)
                 }
             }

@@ -99,19 +99,19 @@ struct SettingsView: View {
                     .foregroundStyle(.secondary)
             }
 
-            if let privacyURL = URL(string: "https://dmflow.app/privacy") {
+            if let privacyURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/privacy/") {
                 Link(destination: privacyURL) {
                     Label("Privacy Policy", systemImage: "hand.raised")
                 }
             }
 
-            if let supportURL = URL(string: "https://dmflow.app/support") {
+            if let supportURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/support/") {
                 Link(destination: supportURL) {
                     Label("Support", systemImage: "questionmark.circle")
                 }
             }
 
-            if let feedbackURL = URL(string: "https://dmflow.app/feedback") {
+            if let feedbackURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/support/") {
                 Link(destination: feedbackURL) {
                     Label("Send Feedback", systemImage: "envelope")
                 }

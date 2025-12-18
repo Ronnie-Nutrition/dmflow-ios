@@ -1,0 +1,12 @@
+title: DMFlow
+description: Track DMs. Close Deals.
+url: "https://ronnie-nutrition.github.io"
+baseurl: "/dmflow-ios"
+
+theme: minima
+
+# Exclude files from the build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
