@@ -16,7 +16,7 @@ struct ProspectDetailView: View {
     @State private var isEditing = false
     @State private var suggestedMessage: String?
     @State private var isGeneratingMessage = false
-    @State private var showingUpgradeAlert = false
+    @State private var showingPaywall = false
     @State private var aiError: String?
 
     var body: some View {
@@ -51,13 +51,8 @@ struct ProspectDetailView: View {
         } message: {
             Text("Are you sure you want to delete \(prospect.name)? This cannot be undone.")
         }
-        .alert("Unlock AI Suggestions", isPresented: $showingUpgradeAlert) {
-            Button("Maybe Later", role: .cancel) { }
-            Button("Upgrade to Pro") {
-                // TODO: Show paywall / StoreKit subscription
-            }
-        } message: {
-            Text("Get personalized follow-up messages powered by AI. Upgrade to DMFlow Pro to unlock this feature.")
+        .sheet(isPresented: $showingPaywall) {
+            PaywallView()
         }
         .alert("AI Error", isPresented: .init(
             get: { aiError != nil },
@@ -366,7 +361,7 @@ struct ProspectDetailView: View {
 
     private func generateMessage() {
         guard UsageTracker.shared.canUseAI else {
-            showingUpgradeAlert = true
+            showingPaywall = true
             return
         }
 
@@ -383,7 +378,7 @@ struct ProspectDetailView: View {
                 await MainActor.run {
                     isGeneratingMessage = false
                     if case .proRequired = error {
-                        showingUpgradeAlert = true
+                        showingPaywall = true
                     } else {
                         aiError = error.localizedDescription
                     }

@@ -29,6 +29,8 @@
 		A1000041001 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041000 /* CloudKitService.swift */; };
 		A1000042001 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000042000 /* AIService.swift */; };
 		A1000043001 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043000 /* UsageTracker.swift */; };
+		A1000044001 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000044000 /* SubscriptionManager.swift */; };
+		A1000045001 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045000 /* PaywallView.swift */; };
 		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
 		FB8EB0BA2EF10C7300CF99AF /* DMFlowShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -83,6 +85,8 @@
 		A1000041000 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
 		A1000042000 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		A1000043000 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		A1000044000 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		A1000045000 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -186,8 +190,17 @@
 				A10000A0024 /* Settings */,
 				A10000A0025 /* Prospect */,
 				A10000A0026 /* Components */,
+				A10000A0027 /* Paywall */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A10000A0027 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				A1000045000 /* PaywallView.swift */,
+			);
+			path = Paywall;
 			sourceTree = "<group>";
 		};
 		A10000A0013 /* ViewModels */ = {
@@ -206,6 +219,7 @@
 				A1000041000 /* CloudKitService.swift */,
 				A1000042000 /* AIService.swift */,
 				A1000043000 /* UsageTracker.swift */,
+				A1000044000 /* SubscriptionManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -422,6 +436,8 @@
 				A1000041001 /* CloudKitService.swift in Sources */,
 				A1000042001 /* AIService.swift in Sources */,
 				A1000043001 /* UsageTracker.swift in Sources */,
+				A1000044001 /* SubscriptionManager.swift in Sources */,
+				A1000045001 /* PaywallView.swift in Sources */,
 				A1000050001 /* AppColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

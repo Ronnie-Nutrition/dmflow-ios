@@ -27,7 +27,8 @@ final class AIService {
             throw AIError.noAPIKey
         }
 
-        guard UsageTracker.shared.canUseAI else {
+        let canUse = await UsageTracker.shared.canUseAI
+        guard canUse else {
             throw AIError.proRequired
         }
 

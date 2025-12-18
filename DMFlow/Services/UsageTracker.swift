@@ -8,10 +8,9 @@
 import Foundation
 
 @Observable
+@MainActor
 final class UsageTracker {
     static let shared = UsageTracker()
-
-    private let defaults = UserDefaults.standard
 
     /// AI features are Pro-only - no free tier
     var canUseAI: Bool {
@@ -19,15 +18,8 @@ final class UsageTracker {
     }
 
     var isPro: Bool {
-        // TODO: Check StoreKit subscription status
-        // For now, always return false (free tier)
-        defaults.bool(forKey: "is_pro_user")
+        SubscriptionManager.shared.isPro
     }
 
     private init() {}
-
-    // For testing Pro features during development
-    func setPro(_ value: Bool) {
-        defaults.set(value, forKey: "is_pro_user")
-    }
 }
