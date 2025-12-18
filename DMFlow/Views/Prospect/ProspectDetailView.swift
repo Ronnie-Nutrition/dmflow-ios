@@ -14,6 +14,10 @@ struct ProspectDetailView: View {
     @Bindable var prospect: Prospect
     @State private var showingDeleteConfirmation = false
     @State private var isEditing = false
+    @State private var suggestedMessage: String?
+    @State private var isGeneratingMessage = false
+    @State private var showingUpgradeAlert = false
+    @State private var aiError: String?
 
     var body: some View {
         ScrollView {
@@ -22,6 +26,7 @@ struct ProspectDetailView: View {
                 stageSection
                 detailsSection
                 notesSection
+                aiSection
                 actionsSection
             }
             .padding()
@@ -45,6 +50,22 @@ struct ProspectDetailView: View {
             }
         } message: {
             Text("Are you sure you want to delete \(prospect.name)? This cannot be undone.")
+        }
+        .alert("Upgrade to Pro", isPresented: $showingUpgradeAlert) {
+            Button("Maybe Later", role: .cancel) { }
+            Button("Learn More") {
+                // TODO: Show paywall
+            }
+        } message: {
+            Text("You've used all \(10) free AI messages this month. Upgrade to Pro for unlimited AI suggestions.")
+        }
+        .alert("AI Error", isPresented: .init(
+            get: { aiError != nil },
+            set: { if !$0 { aiError = nil } }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(aiError ?? "")
         }
     }
 
@@ -239,6 +260,84 @@ struct ProspectDetailView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
+    private var aiSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Label("AI Message Suggestion", systemImage: "sparkles")
+                    .font(.headline)
+
+                Spacer()
+
+                if !UsageTracker.shared.isPro {
+                    Text("\(UsageTracker.shared.remainingUses) left")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            if let message = suggestedMessage {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(message)
+                        .font(.body)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(.systemGray6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                    HStack {
+                        Button {
+                            UIPasteboard.general.string = message
+                        } label: {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+
+                        Button {
+                            suggestedMessage = nil
+                        } label: {
+                            Label("Clear", systemImage: "xmark")
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+
+                        Spacer()
+
+                        Button {
+                            generateMessage()
+                        } label: {
+                            Label("Regenerate", systemImage: "arrow.clockwise")
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                        .disabled(isGeneratingMessage)
+                    }
+                }
+            } else {
+                Button {
+                    generateMessage()
+                } label: {
+                    HStack {
+                        if isGeneratingMessage {
+                            ProgressView()
+                                .controlSize(.small)
+                            Text("Generating...")
+                        } else {
+                            Image(systemName: "sparkles")
+                            Text("Suggest Follow-Up Message")
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(isGeneratingMessage)
+            }
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
     private var actionsSection: some View {
         VStack(spacing: 12) {
             Button {
@@ -258,6 +357,39 @@ struct ProspectDetailView: View {
             .buttonStyle(.bordered)
         }
         .padding()
+    }
+
+    private func generateMessage() {
+        guard UsageTracker.shared.canUseAI else {
+            showingUpgradeAlert = true
+            return
+        }
+
+        isGeneratingMessage = true
+
+        Task {
+            do {
+                let message = try await AIService.shared.generateFollowUpMessage(for: prospect)
+                await MainActor.run {
+                    suggestedMessage = message
+                    isGeneratingMessage = false
+                }
+            } catch let error as AIError {
+                await MainActor.run {
+                    isGeneratingMessage = false
+                    if case .limitReached = error {
+                        showingUpgradeAlert = true
+                    } else {
+                        aiError = error.localizedDescription
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    isGeneratingMessage = false
+                    aiError = error.localizedDescription
+                }
+            }
+        }
     }
 
     private func deleteProspect() {

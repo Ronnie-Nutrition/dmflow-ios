@@ -27,6 +27,8 @@
 		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
 		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
 		A1000041001 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041000 /* CloudKitService.swift */; };
+		A1000042001 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000042000 /* AIService.swift */; };
+		A1000043001 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043000 /* UsageTracker.swift */; };
 		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
 		FB8EB0BA2EF10C7300CF99AF /* DMFlowShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -79,6 +81,8 @@
 		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A1000041000 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
+		A1000042000 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		A1000043000 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
 		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -200,6 +204,8 @@
 			children = (
 				A1000040000 /* NotificationService.swift */,
 				A1000041000 /* CloudKitService.swift */,
+				A1000042000 /* AIService.swift */,
+				A1000043000 /* UsageTracker.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -414,6 +420,8 @@
 				A1000031001 /* StatsViewModel.swift in Sources */,
 				A1000040001 /* NotificationService.swift in Sources */,
 				A1000041001 /* CloudKitService.swift in Sources */,
+				A1000042001 /* AIService.swift in Sources */,
+				A1000043001 /* UsageTracker.swift in Sources */,
 				A1000050001 /* AppColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
