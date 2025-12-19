@@ -46,19 +46,19 @@ A: Yes. Your data is transmitted securely and is not stored on any servers. See 
 A: Try closing and reopening the app. If issues persist, ensure you're running the latest version from the App Store.
 
 **Q: I found a bug. How do I report it?**
-A: Please email us at support@dmflow.app with details about the issue, including your device model and iOS version.
+A: Please email us at ronnie@easyaiflows.com with details about the issue, including your device model and iOS version.
 
 ## Contact Us
 
 Can't find what you're looking for? Reach out to us directly:
 
-**Email**: [support@dmflow.app](mailto:support@dmflow.app)
+**Email**: [ronnie@easyaiflows.com](mailto:ronnie@easyaiflows.com)
 
 We typically respond within 24-48 hours.
 
 ## Feedback
 
-Have ideas for improving DMFlow? We'd love to hear from you! Send your suggestions to [feedback@dmflow.app](mailto:feedback@dmflow.app).
+Have ideas for improving DMFlow? We'd love to hear from you! Send your suggestions to [ronnie@easyaiflows.com](mailto:ronnie@easyaiflows.com).
 
 ---
 
