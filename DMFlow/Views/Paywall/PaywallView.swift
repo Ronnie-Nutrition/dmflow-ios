@@ -51,16 +51,16 @@ struct PaywallView: View {
 
     private var headerSection: some View {
         VStack(spacing: 16) {
-            Image(systemName: "sparkles")
+            Image(systemName: "crown.fill")
                 .font(.system(size: 60))
                 .foregroundStyle(.orange)
 
-            Text("Unlock AI-Powered Messages")
+            Text("Upgrade to DMFlow Pro")
                 .font(.title2)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
 
-            Text("Get personalized follow-up suggestions tailored to each prospect's stage in your pipeline.")
+            Text("Unlock unlimited prospects and AI-powered message suggestions to supercharge your outreach.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -70,9 +70,9 @@ struct PaywallView: View {
 
     private var featuresSection: some View {
         VStack(alignment: .leading, spacing: 12) {
+            FeatureRow(icon: "person.3.fill", title: "Unlimited Prospects", description: "No limits on your pipeline")
             FeatureRow(icon: "sparkles", title: "AI Message Suggestions", description: "Context-aware follow-up messages")
-            FeatureRow(icon: "bolt.fill", title: "Unlimited Generation", description: "No daily or monthly limits")
-            FeatureRow(icon: "doc.on.doc", title: "One-Tap Copy", description: "Instantly copy to clipboard")
+            FeatureRow(icon: "bolt.fill", title: "Unlimited AI Generation", description: "No daily or monthly limits")
             FeatureRow(icon: "arrow.clockwise", title: "Regenerate Anytime", description: "Get fresh message ideas")
         }
         .padding()
@@ -165,7 +165,7 @@ struct PaywallView: View {
                 if let privacyURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/privacy/") {
                     Link("Privacy Policy", destination: privacyURL)
                 }
-                if let termsURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/privacy/") {
+                if let termsURL = URL(string: "https://ronnie-nutrition.github.io/dmflow-ios/terms/") {
                     Link("Terms of Use", destination: termsURL)
                 }
             }

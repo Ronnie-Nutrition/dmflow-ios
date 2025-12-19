@@ -52,7 +52,9 @@ final class SubscriptionManager {
             products = try await Product.products(for: productIDs)
             products.sort { $0.price < $1.price }
         } catch {
+            #if DEBUG
             print("Failed to load products: \(error)")
+            #endif
         }
     }
 
@@ -88,7 +90,9 @@ final class SubscriptionManager {
             try await AppStore.sync()
             await updatePurchasedProducts()
         } catch {
+            #if DEBUG
             print("Failed to restore purchases: \(error)")
+            #endif
         }
     }
 
@@ -114,7 +118,9 @@ final class SubscriptionManager {
                     await self?.updatePurchasedProducts()
                     await transaction.finish()
                 } catch {
+                    #if DEBUG
                     print("Transaction verification failed: \(error)")
+                    #endif
                 }
             }
         }

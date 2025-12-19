@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
+    @Query private var allProspects: [Prospect]
     @State private var selectedTab: Tab = .today
     @State private var showingImportAlert = false
     @State private var importedCount = 0
@@ -68,11 +69,16 @@ struct ContentView: View {
         .tint(AppColors.primary)
         .onAppear {
             importPendingProspects()
+            syncUsageData()
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 importPendingProspects()
+                syncUsageData()
             }
+        }
+        .onChange(of: allProspects.count) { _, _ in
+            syncUsageData()
         }
         .alert("Prospects Imported", isPresented: $showingImportAlert) {
             Button("OK", role: .cancel) { }
@@ -123,7 +129,12 @@ struct ContentView: View {
 
             importedCount = count
             showingImportAlert = true
+            syncUsageData()
         }
+    }
+
+    private func syncUsageData() {
+        UsageTracker.shared.syncToSharedDefaults(prospectCount: allProspects.count)
     }
 }
 

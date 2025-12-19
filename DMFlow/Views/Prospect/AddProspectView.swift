@@ -11,6 +11,7 @@ import SwiftData
 struct AddProspectView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Query private var allProspects: [Prospect]
 
     @State private var name = ""
     @State private var handle = ""
@@ -20,14 +21,22 @@ struct AddProspectView: View {
     @State private var hasFollowUp = false
     @State private var followUpDate = Date().addingTimeInterval(86400)
     @State private var isHotLead = false
+    @State private var showingPaywall = false
 
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
+    private var isAtProspectLimit: Bool {
+        !UsageTracker.shared.canAddProspect(currentCount: allProspects.count)
+    }
+
     var body: some View {
         NavigationStack {
             Form {
+                if isAtProspectLimit {
+                    limitReachedSection
+                }
                 basicInfoSection
                 platformSection
                 stageSection
@@ -44,12 +53,55 @@ struct AddProspectView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        saveProspect()
+                        if isAtProspectLimit {
+                            showingPaywall = true
+                        } else {
+                            saveProspect()
+                        }
                     }
                     .fontWeight(.semibold)
                     .disabled(!canSave)
                 }
             }
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
+            }
+            .onChange(of: SubscriptionManager.shared.isPro) { _, isPro in
+                if isPro && canSave {
+                    saveProspect()
+                }
+            }
+        }
+    }
+
+    private var limitReachedSection: some View {
+        Section {
+            VStack(spacing: 12) {
+                Image(systemName: "person.crop.circle.badge.exclamationmark")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.orange)
+
+                Text("Free Limit Reached")
+                    .font(.headline)
+
+                Text("You've reached the \(UsageTracker.freeProspectLimit)-prospect limit on the free tier. Upgrade to DMFlow Pro for unlimited prospects.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
+                Button {
+                    showingPaywall = true
+                } label: {
+                    Text("Upgrade to Pro")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.orange)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+            }
+            .padding(.vertical, 8)
         }
     }
 

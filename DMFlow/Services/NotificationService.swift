@@ -19,7 +19,9 @@ final class NotificationService {
                 .requestAuthorization(options: [.alert, .badge, .sound])
             return granted
         } catch {
+            #if DEBUG
             print("Notification authorization error: \(error)")
+            #endif
             return false
         }
     }
@@ -46,9 +48,11 @@ final class NotificationService {
         )
 
         UNUserNotificationCenter.current().add(request) { error in
+            #if DEBUG
             if let error = error {
                 print("Error scheduling notification: \(error)")
             }
+            #endif
         }
     }
 
@@ -87,9 +91,11 @@ final class NotificationService {
         )
 
         UNUserNotificationCenter.current().add(request) { error in
+            #if DEBUG
             if let error = error {
                 print("Error scheduling morning reminder: \(error)")
             }
+            #endif
         }
     }
 

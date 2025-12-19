@@ -20,9 +20,26 @@ struct ShareExtensionView: View {
     @State private var notes: String = ""
     @State private var isHotLead: Bool = false
 
+    // Free tier limit
+    private let freeProspectLimit = 15
+
+    private var isAtLimit: Bool {
+        let defaults = UserDefaults(suiteName: "group.com.ronnie.dmflow")
+        let isPro = defaults?.bool(forKey: "isPro") ?? false
+        if isPro { return false }
+
+        let currentCount = defaults?.integer(forKey: "prospectCount") ?? 0
+        let pendingCount = (defaults?.array(forKey: "pendingProspects") as? [[String: Any]])?.count ?? 0
+        return (currentCount + pendingCount) >= freeProspectLimit
+    }
+
     var body: some View {
         NavigationStack {
             Form {
+                if isAtLimit {
+                    limitReachedSection
+                }
+
                 Section("Basic Info") {
                     TextField("Name", text: $name)
                     TextField("@handle", text: $handle)
@@ -67,7 +84,7 @@ struct ShareExtensionView: View {
                         saveProspect()
                     }
                     .fontWeight(.semibold)
-                    .disabled(name.isEmpty)
+                    .disabled(name.isEmpty || isAtLimit)
                 }
             }
             .onAppear {
@@ -78,6 +95,25 @@ struct ShareExtensionView: View {
                     handle = prefillHandle
                 }
             }
+        }
+    }
+
+    private var limitReachedSection: some View {
+        Section {
+            VStack(spacing: 12) {
+                Image(systemName: "person.crop.circle.badge.exclamationmark")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.orange)
+
+                Text("Free Limit Reached")
+                    .font(.headline)
+
+                Text("You've reached the \(freeProspectLimit)-prospect limit. Open DMFlow and upgrade to Pro for unlimited prospects.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.vertical, 8)
         }
     }
 

@@ -280,7 +280,9 @@ struct SettingsView: View {
             try csv.write(to: tempURL, atomically: true, encoding: .utf8)
             exportFile = ExportFile(url: tempURL)
         } catch {
+            #if DEBUG
             print("Export failed: \(error)")
+            #endif
         }
     }
 

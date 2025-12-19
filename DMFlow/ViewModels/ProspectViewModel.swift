@@ -89,7 +89,9 @@ final class ProspectViewModel {
         do {
             try modelContext.save()
         } catch {
+            #if DEBUG
             print("Error saving context: \(error)")
+            #endif
         }
     }
 }
