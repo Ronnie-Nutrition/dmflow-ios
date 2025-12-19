@@ -7,15 +7,107 @@
 
 import Foundation
 
+// MARK: - User Profile Types
+
+enum TonePreference: String, CaseIterable, Identifiable {
+    case professional = "Professional"
+    case casual = "Casual"
+    case friendly = "Friendly"
+    case direct = "Direct"
+
+    var id: String { rawValue }
+
+    var promptDescription: String {
+        switch self {
+        case .professional: return "professional and polished, yet approachable"
+        case .casual: return "casual and relaxed, like texting a friend"
+        case .friendly: return "warm, friendly, and enthusiastic"
+        case .direct: return "straightforward and to-the-point, no fluff"
+        }
+    }
+}
+
+enum EmojiPreference: String, CaseIterable, Identifiable {
+    case none = "None"
+    case minimal = "Minimal"
+    case moderate = "Moderate"
+
+    var id: String { rawValue }
+
+    var promptDescription: String {
+        switch self {
+        case .none: return "Do NOT use any emojis"
+        case .minimal: return "Use emojis sparingly (0-1 per message)"
+        case .moderate: return "Use emojis naturally (1-2 per message)"
+        }
+    }
+}
+
+// MARK: - User Profile
+
+struct UserProfile {
+    var name: String
+    var industry: String
+    var offering: String
+    var tone: TonePreference
+    var emojiUsage: EmojiPreference
+    var sampleMessages: String
+
+    static let empty = UserProfile(
+        name: "",
+        industry: "",
+        offering: "",
+        tone: .friendly,
+        emojiUsage: .minimal,
+        sampleMessages: ""
+    )
+}
+
+// MARK: - AI Service
+
 @Observable
 final class AIService {
     static let shared = AIService()
 
-    private let apiKey: String? = {
-        // API key should be set in environment or config
-        // For production, use a secure method like Keychain or server-side proxy
-        ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
-    }()
+    private var apiKey: String? {
+        // Check UserDefaults first, then environment variable as fallback
+        if let stored = UserDefaults.standard.string(forKey: "openai_api_key"), !stored.isEmpty {
+            return stored
+        }
+        return ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
+    }
+
+    // MARK: - API Key Management
+
+    static func setAPIKey(_ key: String) {
+        UserDefaults.standard.set(key, forKey: "openai_api_key")
+    }
+
+    static func getAPIKey() -> String {
+        UserDefaults.standard.string(forKey: "openai_api_key") ?? ""
+    }
+
+    // MARK: - User Profile Management
+
+    static func setUserProfile(_ profile: UserProfile) {
+        UserDefaults.standard.set(profile.name, forKey: "profile_name")
+        UserDefaults.standard.set(profile.industry, forKey: "profile_industry")
+        UserDefaults.standard.set(profile.offering, forKey: "profile_offering")
+        UserDefaults.standard.set(profile.tone.rawValue, forKey: "profile_tone")
+        UserDefaults.standard.set(profile.emojiUsage.rawValue, forKey: "profile_emoji")
+        UserDefaults.standard.set(profile.sampleMessages, forKey: "profile_samples")
+    }
+
+    static func getUserProfile() -> UserProfile {
+        UserProfile(
+            name: UserDefaults.standard.string(forKey: "profile_name") ?? "",
+            industry: UserDefaults.standard.string(forKey: "profile_industry") ?? "",
+            offering: UserDefaults.standard.string(forKey: "profile_offering") ?? "",
+            tone: TonePreference(rawValue: UserDefaults.standard.string(forKey: "profile_tone") ?? "") ?? .friendly,
+            emojiUsage: EmojiPreference(rawValue: UserDefaults.standard.string(forKey: "profile_emoji") ?? "") ?? .minimal,
+            sampleMessages: UserDefaults.standard.string(forKey: "profile_samples") ?? ""
+        )
+    }
 
     var isLoading = false
     var lastError: String?
@@ -42,6 +134,8 @@ final class AIService {
     }
 
     private func buildPrompt(for prospect: Prospect) -> String {
+        let profile = AIService.getUserProfile()
+
         let stageContext: String
         switch prospect.stage {
         case .new:
@@ -58,9 +152,35 @@ final class AIService {
             stageContext = "This prospect asked not to be contacted. Write a brief, respectful check-in that gives them an easy out."
         }
 
-        var context = """
-        You are helping a network marketer write a follow-up DM message.
+        // Build user identity section
+        var userIdentity = "You are writing a DM message"
+        if !profile.name.isEmpty {
+            userIdentity = "You are writing as \(profile.name)"
+        }
+        if !profile.industry.isEmpty {
+            userIdentity += ", who works in \(profile.industry)"
+        }
+        if !profile.offering.isEmpty {
+            userIdentity += " and offers \(profile.offering)"
+        }
+        userIdentity += "."
 
+        // Build sample messages section
+        var sampleSection = ""
+        if !profile.sampleMessages.isEmpty {
+            sampleSection = """
+
+            Here are examples of messages they've written (match this style closely):
+            \(profile.sampleMessages)
+
+            """
+        }
+
+        var context = """
+        \(userIdentity)
+
+        Your communication style is \(profile.tone.promptDescription).
+        \(sampleSection)
         Prospect details:
         - Name: \(prospect.name)
         - Platform: \(prospect.platform.displayName)
@@ -84,10 +204,10 @@ final class AIService {
         - Keep it short (2-3 sentences max)
         - Be conversational and authentic
         - Don't be salesy or use hype words
-        - Match the casual tone of \(prospect.platform.displayName)
-        - Don't use emojis excessively
+        - Match the tone of \(prospect.platform.displayName)
+        - \(profile.emojiUsage.promptDescription)
 
-        Write only the message, nothing else.
+        Write only the message, nothing else. Match the user's voice and style exactly.
         """
 
         return context

@@ -18,6 +18,7 @@ struct ProspectDetailView: View {
     @State private var isGeneratingMessage = false
     @State private var showingPaywall = false
     @State private var aiError: String?
+    @State private var showCopiedFeedback = false
 
     var body: some View {
         ScrollView {
@@ -89,9 +90,23 @@ struct ProspectDetailView: View {
                 }
 
                 if let handle = prospect.handle, !handle.isEmpty {
-                    Text("@\(handle)")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    if let profileURL = prospect.platform.profileURL(for: handle) {
+                        Button {
+                            UIApplication.shared.open(profileURL)
+                        } label: {
+                            HStack(spacing: 4) {
+                                Text("@\(handle)")
+                                Image(systemName: "arrow.up.right.square")
+                                    .font(.caption)
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(prospect.platform.color)
+                        }
+                    } else {
+                        Text("@\(handle)")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
                 Text(prospect.platform.displayName)
@@ -287,10 +302,20 @@ struct ProspectDetailView: View {
                     HStack {
                         Button {
                             UIPasteboard.general.string = message
+                            showCopiedFeedback = true
+                            // Haptic feedback
+                            let generator = UINotificationFeedbackGenerator()
+                            generator.notificationOccurred(.success)
+                            // Reset after delay
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                showCopiedFeedback = false
+                            }
                         } label: {
-                            Label("Copy", systemImage: "doc.on.doc")
+                            Label(showCopiedFeedback ? "Copied!" : "Copy",
+                                  systemImage: showCopiedFeedback ? "checkmark" : "doc.on.doc")
                         }
                         .buttonStyle(.bordered)
+                        .tint(showCopiedFeedback ? .green : nil)
                         .controlSize(.small)
 
                         Button {

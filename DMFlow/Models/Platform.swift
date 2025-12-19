@@ -46,4 +46,37 @@ enum Platform: String, Codable, CaseIterable, Identifiable {
         case .other: return Color.gray
         }
     }
+
+    /// Returns the URL to open the user's profile on this platform
+    func profileURL(for handle: String) -> URL? {
+        let cleanHandle = handle.replacingOccurrences(of: "@", with: "")
+        switch self {
+        case .instagram:
+            // Try app first, falls back to web
+            return URL(string: "https://instagram.com/\(cleanHandle)")
+        case .facebook:
+            return URL(string: "https://facebook.com/\(cleanHandle)")
+        case .whatsapp:
+            // WhatsApp needs phone number format
+            let phoneNumber = cleanHandle.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+            guard !phoneNumber.isEmpty else { return nil }
+            return URL(string: "https://wa.me/\(phoneNumber)")
+        case .sms:
+            let phoneNumber = cleanHandle.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+            guard !phoneNumber.isEmpty else { return nil }
+            return URL(string: "sms:\(phoneNumber)")
+        case .other:
+            return nil
+        }
+    }
+
+    /// Whether this platform supports direct profile links
+    var supportsProfileLink: Bool {
+        switch self {
+        case .instagram, .facebook, .whatsapp, .sms:
+            return true
+        case .other:
+            return false
+        }
+    }
 }
