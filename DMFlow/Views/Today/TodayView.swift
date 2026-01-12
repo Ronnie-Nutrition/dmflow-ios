@@ -12,6 +12,7 @@ struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
     @State private var showingAddProspect = false
+    @State private var showingPowerHour = false
 
     private var overdueProspects: [Prospect] {
         allProspects.filter { $0.isOverdue && $0.stage != .client && $0.stage != .dnd }
@@ -87,6 +88,17 @@ struct TodayView: View {
             .background(AppColors.background)
             .navigationTitle("Today")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showingPowerHour = true
+                    } label: {
+                        Label("Power Hour", systemImage: "bolt.fill")
+                            .labelStyle(.titleAndIcon)
+                            .font(.subheadline)
+                    }
+                    .disabled(overdueProspects.isEmpty && todayProspects.isEmpty && hotLeads.isEmpty)
+                }
+
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showingAddProspect = true
@@ -98,6 +110,9 @@ struct TodayView: View {
             }
             .sheet(isPresented: $showingAddProspect) {
                 AddProspectView()
+            }
+            .fullScreenCover(isPresented: $showingPowerHour) {
+                PowerHourView()
             }
         }
     }

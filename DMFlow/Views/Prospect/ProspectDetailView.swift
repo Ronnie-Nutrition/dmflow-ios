@@ -19,6 +19,7 @@ struct ProspectDetailView: View {
     @State private var showingPaywall = false
     @State private var aiError: String?
     @State private var showCopiedFeedback = false
+    @State private var showingTemplatePicker = false
 
     var body: some View {
         ScrollView {
@@ -54,6 +55,11 @@ struct ProspectDetailView: View {
         }
         .sheet(isPresented: $showingPaywall) {
             PaywallView()
+        }
+        .sheet(isPresented: $showingTemplatePicker) {
+            TemplatePickerView(prospect: prospect) { message in
+                suggestedMessage = message
+            }
         }
         .alert("AI Error", isPresented: .init(
             get: { aiError != nil },
@@ -339,23 +345,36 @@ struct ProspectDetailView: View {
                     }
                 }
             } else {
-                Button {
-                    generateMessage()
-                } label: {
-                    HStack {
-                        if isGeneratingMessage {
-                            ProgressView()
-                                .controlSize(.small)
-                            Text("Generating...")
-                        } else {
-                            Image(systemName: "sparkles")
-                            Text("Suggest Follow-Up Message")
+                HStack(spacing: 12) {
+                    Button {
+                        generateMessage()
+                    } label: {
+                        HStack {
+                            if isGeneratingMessage {
+                                ProgressView()
+                                    .controlSize(.small)
+                                Text("Generating...")
+                            } else {
+                                Image(systemName: "sparkles")
+                                Text("AI Suggest")
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
+                    .buttonStyle(.borderedProminent)
+                    .disabled(isGeneratingMessage)
+
+                    Button {
+                        showingTemplatePicker = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "doc.text")
+                            Text("Template")
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(isGeneratingMessage)
             }
         }
         .padding()

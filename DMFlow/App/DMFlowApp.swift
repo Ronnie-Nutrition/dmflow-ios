@@ -16,7 +16,8 @@ struct DMFlowApp: App {
     init() {
         do {
             let schema = Schema([
-                Prospect.self
+                Prospect.self,
+                MessageTemplate.self
             ])
             // Use local storage only for now (CloudKit can be enabled later)
             let modelConfiguration = ModelConfiguration(
@@ -28,6 +29,10 @@ struct DMFlowApp: App {
                 for: schema,
                 configurations: [modelConfiguration]
             )
+
+            // Populate built-in templates on first launch
+            let context = ModelContext(modelContainer)
+            TemplateService.shared.populateBuiltInTemplates(in: context)
         } catch {
             fatalError("Could not initialize ModelContainer: \(error)")
         }

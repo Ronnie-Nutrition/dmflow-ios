@@ -30,6 +30,7 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 profileSection
+                templatesSection
                 notificationsSection
                 aiSection
                 dataSection
@@ -124,6 +125,20 @@ struct SettingsView: View {
             sampleMessages: profileSamples
         )
         AIService.setUserProfile(profile)
+    }
+
+    private var templatesSection: some View {
+        Section {
+            NavigationLink {
+                TemplatesView()
+            } label: {
+                Label("Message Templates", systemImage: "doc.text")
+            }
+        } header: {
+            Text("Quick Messages")
+        } footer: {
+            Text("Pre-written messages you can quickly copy and send. Works offline, no AI needed.")
+        }
     }
 
     private var notificationsSection: some View {

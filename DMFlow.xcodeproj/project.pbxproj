@@ -23,6 +23,14 @@
 		A1000026001 /* AddProspectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000026000 /* AddProspectView.swift */; };
 		A1000027001 /* ProspectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000027000 /* ProspectCard.swift */; };
 		A1000028001 /* ProspectSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000028000 /* ProspectSection.swift */; };
+		A1000029001 /* PowerHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000029000 /* PowerHourView.swift */; };
+		A100002A001 /* PowerHourCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002A000 /* PowerHourCard.swift */; };
+		A100002B001 /* PowerHourSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002B000 /* PowerHourSummaryView.swift */; };
+		A1000046001 /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000046000 /* TemplateService.swift */; };
+		A1000051001 /* MessageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000051000 /* MessageTemplate.swift */; };
+		A1000052001 /* TemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000052000 /* TemplatesView.swift */; };
+		A1000053001 /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000053000 /* TemplateEditorView.swift */; };
+		A1000054001 /* TemplatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000054000 /* TemplatePickerView.swift */; };
 		A1000030001 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030000 /* ProspectViewModel.swift */; };
 		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
 		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
@@ -79,6 +87,14 @@
 		A1000026000 /* AddProspectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProspectView.swift; sourceTree = "<group>"; };
 		A1000027000 /* ProspectCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectCard.swift; sourceTree = "<group>"; };
 		A1000028000 /* ProspectSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectSection.swift; sourceTree = "<group>"; };
+		A1000029000 /* PowerHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourView.swift; sourceTree = "<group>"; };
+		A100002A000 /* PowerHourCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourCard.swift; sourceTree = "<group>"; };
+		A100002B000 /* PowerHourSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourSummaryView.swift; sourceTree = "<group>"; };
+		A1000046000 /* TemplateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateService.swift; sourceTree = "<group>"; };
+		A1000051000 /* MessageTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTemplate.swift; sourceTree = "<group>"; };
+		A1000052000 /* TemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesView.swift; sourceTree = "<group>"; };
+		A1000053000 /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
+		A1000054000 /* TemplatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerView.swift; sourceTree = "<group>"; };
 		A1000030000 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
 		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -176,6 +192,7 @@
 				A1000010000 /* Prospect.swift */,
 				A1000011000 /* Platform.swift */,
 				A1000012000 /* FunnelStage.swift */,
+				A1000051000 /* MessageTemplate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,8 +208,30 @@
 				A10000A0025 /* Prospect */,
 				A10000A0026 /* Components */,
 				A10000A0027 /* Paywall */,
+				A10000A0028 /* PowerHour */,
+				A10000A0029 /* Templates */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A10000A0028 /* PowerHour */ = {
+			isa = PBXGroup;
+			children = (
+				A1000029000 /* PowerHourView.swift */,
+				A100002A000 /* PowerHourCard.swift */,
+				A100002B000 /* PowerHourSummaryView.swift */,
+			);
+			path = PowerHour;
+			sourceTree = "<group>";
+		};
+		A10000A0029 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				A1000052000 /* TemplatesView.swift */,
+				A1000053000 /* TemplateEditorView.swift */,
+				A1000054000 /* TemplatePickerView.swift */,
+			);
+			path = Templates;
 			sourceTree = "<group>";
 		};
 		A10000A0027 /* Paywall */ = {
@@ -220,6 +259,7 @@
 				A1000042000 /* AIService.swift */,
 				A1000043000 /* UsageTracker.swift */,
 				A1000044000 /* SubscriptionManager.swift */,
+				A1000046000 /* TemplateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -430,6 +470,9 @@
 				A1000026001 /* AddProspectView.swift in Sources */,
 				A1000027001 /* ProspectCard.swift in Sources */,
 				A1000028001 /* ProspectSection.swift in Sources */,
+				A1000029001 /* PowerHourView.swift in Sources */,
+				A100002A001 /* PowerHourCard.swift in Sources */,
+				A100002B001 /* PowerHourSummaryView.swift in Sources */,
 				A1000030001 /* ProspectViewModel.swift in Sources */,
 				A1000031001 /* StatsViewModel.swift in Sources */,
 				A1000040001 /* NotificationService.swift in Sources */,
@@ -438,7 +481,12 @@
 				A1000043001 /* UsageTracker.swift in Sources */,
 				A1000044001 /* SubscriptionManager.swift in Sources */,
 				A1000045001 /* PaywallView.swift in Sources */,
+				A1000046001 /* TemplateService.swift in Sources */,
 				A1000050001 /* AppColors.swift in Sources */,
+				A1000051001 /* MessageTemplate.swift in Sources */,
+				A1000052001 /* TemplatesView.swift in Sources */,
+				A1000053001 /* TemplateEditorView.swift in Sources */,
+				A1000054001 /* TemplatePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
