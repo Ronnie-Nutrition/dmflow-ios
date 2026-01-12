@@ -17,7 +17,8 @@ struct DMFlowApp: App {
         do {
             let schema = Schema([
                 Prospect.self,
-                MessageTemplate.self
+                MessageTemplate.self,
+                ProspectActivity.self
             ])
             // Use local storage only for now (CloudKit can be enabled later)
             let modelConfiguration = ModelConfiguration(

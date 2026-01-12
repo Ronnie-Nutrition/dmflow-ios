@@ -22,6 +22,7 @@ struct PowerHourCard: View {
     @State private var localCopiedFeedback = false
     @State private var offset: CGFloat = 0
     @State private var showingTemplatePicker = false
+    @State private var showingAddActivity = false
     private let swipeThreshold: CGFloat = 120
 
     var body: some View {
@@ -40,6 +41,9 @@ struct PowerHourCard: View {
             TemplatePickerView(prospect: prospect) { message in
                 suggestedMessage = message
             }
+        }
+        .sheet(isPresented: $showingAddActivity) {
+            AddActivityView(prospect: prospect)
         }
     }
 
@@ -319,6 +323,16 @@ struct PowerHourCard: View {
                 .buttonStyle(.bordered)
                 .tint(AppColors.warning)
             }
+
+            // Log activity button
+            Button {
+                showingAddActivity = true
+            } label: {
+                Label("Log Activity", systemImage: "clock.arrow.circlepath")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
 
             // Swipe hint
             Text("Swipe right to mark contacted, left to skip")

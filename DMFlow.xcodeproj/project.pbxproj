@@ -31,6 +31,10 @@
 		A1000052001 /* TemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000052000 /* TemplatesView.swift */; };
 		A1000053001 /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000053000 /* TemplateEditorView.swift */; };
 		A1000054001 /* TemplatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000054000 /* TemplatePickerView.swift */; };
+		A1000060001 /* ProspectActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000060000 /* ProspectActivity.swift */; };
+		A1000061001 /* ActivityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000061000 /* ActivityRowView.swift */; };
+		A1000062001 /* AddActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000062000 /* AddActivityView.swift */; };
+		A1000063001 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000063000 /* ActivityLogView.swift */; };
 		A1000030001 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030000 /* ProspectViewModel.swift */; };
 		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
 		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
@@ -95,6 +99,10 @@
 		A1000052000 /* TemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesView.swift; sourceTree = "<group>"; };
 		A1000053000 /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
 		A1000054000 /* TemplatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerView.swift; sourceTree = "<group>"; };
+		A1000060000 /* ProspectActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectActivity.swift; sourceTree = "<group>"; };
+		A1000061000 /* ActivityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRowView.swift; sourceTree = "<group>"; };
+		A1000062000 /* AddActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityView.swift; sourceTree = "<group>"; };
+		A1000063000 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		A1000030000 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
 		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -193,6 +201,7 @@
 				A1000011000 /* Platform.swift */,
 				A1000012000 /* FunnelStage.swift */,
 				A1000051000 /* MessageTemplate.swift */,
+				A1000060000 /* ProspectActivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,6 +219,7 @@
 				A10000A0027 /* Paywall */,
 				A10000A0028 /* PowerHour */,
 				A10000A0029 /* Templates */,
+				A10000A002A /* Activity */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +242,16 @@
 				A1000054000 /* TemplatePickerView.swift */,
 			);
 			path = Templates;
+			sourceTree = "<group>";
+		};
+		A10000A002A /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				A1000061000 /* ActivityRowView.swift */,
+				A1000062000 /* AddActivityView.swift */,
+				A1000063000 /* ActivityLogView.swift */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		A10000A0027 /* Paywall */ = {
@@ -487,6 +507,10 @@
 				A1000052001 /* TemplatesView.swift in Sources */,
 				A1000053001 /* TemplateEditorView.swift in Sources */,
 				A1000054001 /* TemplatePickerView.swift in Sources */,
+				A1000060001 /* ProspectActivity.swift in Sources */,
+				A1000061001 /* ActivityRowView.swift in Sources */,
+				A1000062001 /* AddActivityView.swift in Sources */,
+				A1000063001 /* ActivityLogView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

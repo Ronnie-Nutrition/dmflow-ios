@@ -28,6 +28,7 @@ struct ProspectDetailView: View {
                 stageSection
                 detailsSection
                 notesSection
+                activitySection
                 aiSection
                 actionsSection
             }
@@ -276,6 +277,10 @@ struct ProspectDetailView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
+    private var activitySection: some View {
+        ActivityLogView(prospect: prospect)
+    }
+
     private var aiSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -500,5 +505,5 @@ struct DetailRow: View {
             isHotLead: true
         ))
     }
-    .modelContainer(for: Prospect.self, inMemory: true)
+    .modelContainer(for: [Prospect.self, ProspectActivity.self], inMemory: true)
 }

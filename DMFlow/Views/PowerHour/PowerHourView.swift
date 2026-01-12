@@ -201,6 +201,15 @@ struct PowerHourView: View {
 
         // Mark as contacted
         prospect.markContacted()
+
+        // Log activity
+        let activity = ProspectActivity(
+            prospectId: prospect.id,
+            activityType: .contacted,
+            notes: "Marked contacted during Power Hour"
+        )
+        modelContext.insert(activity)
+
         try? modelContext.save()
 
         // Haptic feedback - success
@@ -325,5 +334,5 @@ struct PowerHourView: View {
 
 #Preview {
     PowerHourView()
-        .modelContainer(for: Prospect.self, inMemory: true)
+        .modelContainer(for: [Prospect.self, ProspectActivity.self], inMemory: true)
 }
