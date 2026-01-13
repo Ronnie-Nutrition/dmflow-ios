@@ -12,9 +12,11 @@ import EventKit
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
+    @StateObject private var cloudKitService = CloudKitService.shared
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("morningReminderTime") private var morningReminderTime = 9
     @AppStorage("calendarSyncEnabled") private var calendarSyncEnabled = false
+    @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled = true
     @State private var showingDeleteConfirmation = false
     @State private var exportFile: ExportFile?
     @State private var apiKey: String = AIService.getAPIKey()
@@ -36,6 +38,7 @@ struct SettingsView: View {
                 templatesSection
                 notificationsSection
                 calendarSection
+                iCloudSection
                 aiSection
                 dataSection
                 aboutSection
@@ -213,6 +216,76 @@ struct SettingsView: View {
             Text("Calendar Integration")
         } footer: {
             Text("Add follow-up reminders to your iOS Calendar for visibility across all your devices.")
+        }
+    }
+
+    private var iCloudSection: some View {
+        Section {
+            HStack {
+                Image(systemName: cloudKitService.syncStatus.icon)
+                    .foregroundStyle(syncStatusColor)
+                    .symbolEffect(.pulse, isActive: cloudKitService.syncStatus == .syncing)
+                Text("iCloud Sync")
+                Spacer()
+                Text(cloudKitService.syncStatus.displayText)
+                    .foregroundStyle(.secondary)
+            }
+
+            HStack {
+                Text("Account")
+                Spacer()
+                Text(cloudKitService.accountStatus.displayText)
+                    .foregroundStyle(.secondary)
+            }
+
+            if cloudKitService.accountStatus == .available {
+                HStack {
+                    Text("Last Synced")
+                    Spacer()
+                    Text(cloudKitService.formattedLastSync)
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
+                    Task {
+                        await cloudKitService.triggerSync()
+                    }
+                } label: {
+                    HStack {
+                        Label("Sync Now", systemImage: "arrow.triangle.2.circlepath")
+                        Spacer()
+                        if cloudKitService.syncStatus == .syncing {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                        }
+                    }
+                }
+                .disabled(cloudKitService.syncStatus == .syncing)
+            }
+
+            if cloudKitService.accountStatus == .noAccount {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text("Sign in to iCloud in Settings to sync.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        } header: {
+            Text("iCloud Sync")
+        } footer: {
+            Text("Your prospects, templates, and activities sync automatically across all your devices signed into the same iCloud account.")
+        }
+    }
+
+    private var syncStatusColor: Color {
+        switch cloudKitService.syncStatus.color {
+        case "green": return .green
+        case "blue": return .blue
+        case "red": return .red
+        case "orange": return .orange
+        default: return .secondary
         }
     }
 

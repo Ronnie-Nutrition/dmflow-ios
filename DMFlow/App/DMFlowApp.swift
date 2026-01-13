@@ -16,29 +16,45 @@ struct DMFlowApp: App {
     let modelContainer: ModelContainer
 
     init() {
+        let schema = Schema([
+            Prospect.self,
+            MessageTemplate.self,
+            ProspectActivity.self
+        ])
+
+        // Try CloudKit first, fall back to local if it fails
         do {
-            let schema = Schema([
-                Prospect.self,
-                MessageTemplate.self,
-                ProspectActivity.self
-            ])
-            // Use local storage only for now (CloudKit can be enabled later)
-            let modelConfiguration = ModelConfiguration(
+            let cloudConfig = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false,
-                cloudKitDatabase: .none
+                cloudKitDatabase: .automatic
             )
             modelContainer = try ModelContainer(
                 for: schema,
-                configurations: [modelConfiguration]
+                configurations: [cloudConfig]
             )
-
-            // Populate built-in templates on first launch
-            let context = ModelContext(modelContainer)
-            TemplateService.shared.populateBuiltInTemplates(in: context)
+            print("DMFlow: Using iCloud sync")
         } catch {
-            fatalError("Could not initialize ModelContainer: \(error)")
+            // CloudKit failed - fall back to local storage
+            print("DMFlow: CloudKit failed (\(error.localizedDescription)), using local storage")
+            do {
+                let localConfig = ModelConfiguration(
+                    schema: schema,
+                    isStoredInMemoryOnly: false,
+                    cloudKitDatabase: .none
+                )
+                modelContainer = try ModelContainer(
+                    for: schema,
+                    configurations: [localConfig]
+                )
+            } catch {
+                fatalError("Could not initialize ModelContainer: \(error)")
+            }
         }
+
+        // Populate built-in templates on first launch
+        let context = ModelContext(modelContainer)
+        TemplateService.shared.populateBuiltInTemplates(in: context)
     }
 
     var body: some Scene {
@@ -109,4 +125,5 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
 extension Notification.Name {
     static let openProspect = Notification.Name("openProspect")
+    static let openPowerHour = Notification.Name("openPowerHour")
 }

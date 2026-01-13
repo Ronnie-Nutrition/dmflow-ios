@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .today
     @State private var showingImportAlert = false
     @State private var importedCount = 0
+    @State private var showingPowerHour = false
 
     enum Tab: String, CaseIterable {
         case today = "Today"
@@ -90,6 +91,12 @@ struct ContentView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text("\(importedCount) prospect\(importedCount == 1 ? "" : "s") added from Share Extension")
+        }
+        .fullScreenCover(isPresented: $showingPowerHour) {
+            PowerHourView()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .openPowerHour)) { _ in
+            showingPowerHour = true
         }
     }
 

@@ -11,6 +11,7 @@ import SwiftData
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
+    @StateObject private var cloudKitService = CloudKitService.shared
     @State private var showingAddProspect = false
     @State private var showingPowerHour = false
 
@@ -100,11 +101,14 @@ struct TodayView: View {
                 }
 
                 ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        showingAddProspect = true
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2)
+                    HStack(spacing: 16) {
+                        SyncStatusButton(cloudKitService: cloudKitService)
+                        Button {
+                            showingAddProspect = true
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.title2)
+                        }
                     }
                 }
             }
@@ -192,6 +196,35 @@ struct StatCard: View {
         .background(Color(.systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: .black.opacity(0.05), radius: 2, y: 1)
+    }
+}
+
+struct SyncStatusButton: View {
+    @ObservedObject var cloudKitService: CloudKitService
+
+    var body: some View {
+        Button {
+            Task {
+                await cloudKitService.triggerSync()
+            }
+        } label: {
+            Image(systemName: cloudKitService.syncStatus.icon)
+                .font(.title3)
+                .foregroundStyle(statusColor)
+                .symbolEffect(.pulse, isActive: cloudKitService.syncStatus == .syncing)
+        }
+        .disabled(cloudKitService.syncStatus == .syncing || cloudKitService.accountStatus != .available)
+        .accessibilityLabel("iCloud Sync: \(cloudKitService.syncStatus.displayText)")
+    }
+
+    private var statusColor: Color {
+        switch cloudKitService.syncStatus {
+        case .synced: return .green
+        case .syncing: return .blue
+        case .error: return .red
+        case .offline: return .orange
+        case .notSignedIn, .idle: return .secondary
+        }
     }
 }
 
