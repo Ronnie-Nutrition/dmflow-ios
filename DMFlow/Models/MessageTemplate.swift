@@ -48,6 +48,12 @@ final class MessageTemplate {
     var createdAt: Date
     var updatedAt: Date
 
+    // A/B Script Tracking
+    var timesSent: Int = 0
+    var timesConverted: Int = 0
+    var variantGroup: UUID? = nil
+    var variantLetter: String? = nil
+
     init(
         id: UUID = UUID(),
         name: String,
@@ -55,7 +61,11 @@ final class MessageTemplate {
         content: String,
         isBuiltIn: Bool = false,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        timesSent: Int = 0,
+        timesConverted: Int = 0,
+        variantGroup: UUID? = nil,
+        variantLetter: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -64,6 +74,10 @@ final class MessageTemplate {
         self.isBuiltIn = isBuiltIn
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.timesSent = timesSent
+        self.timesConverted = timesConverted
+        self.variantGroup = variantGroup
+        self.variantLetter = variantLetter
     }
 
     /// Preview of the template content (first 50 characters)
@@ -72,5 +86,24 @@ final class MessageTemplate {
             return content
         }
         return String(content.prefix(50)) + "..."
+    }
+
+    /// Conversion rate as a percentage (0-100)
+    var conversionRate: Double {
+        guard timesSent > 0 else { return 0 }
+        return Double(timesConverted) / Double(timesSent) * 100
+    }
+
+    /// Display name with variant letter if applicable
+    var displayName: String {
+        if let letter = variantLetter {
+            return "\(name) (\(letter))"
+        }
+        return name
+    }
+
+    /// Whether this template is part of an A/B test
+    var isVariant: Bool {
+        variantGroup != nil
     }
 }

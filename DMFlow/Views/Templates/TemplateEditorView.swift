@@ -12,10 +12,12 @@ struct TemplateEditorView: View {
     enum Mode {
         case create
         case edit(MessageTemplate)
+        case createVariant(MessageTemplate)
     }
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Query private var allTemplates: [MessageTemplate]
 
     let mode: Mode
 
@@ -29,8 +31,18 @@ struct TemplateEditorView: View {
         return false
     }
 
+    private var isCreatingVariant: Bool {
+        if case .createVariant = mode { return true }
+        return false
+    }
+
     private var editingTemplate: MessageTemplate? {
         if case .edit(let template) = mode { return template }
+        return nil
+    }
+
+    private var sourceTemplate: MessageTemplate? {
+        if case .createVariant(let template) = mode { return template }
         return nil
     }
 
@@ -87,7 +99,7 @@ struct TemplateEditorView: View {
                 }
             }
         }
-        .navigationTitle(isEditing ? "Edit Template" : "New Template")
+        .navigationTitle(isEditing ? "Edit Template" : (isCreatingVariant ? "Create A/B Variant" : "New Template"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -108,6 +120,10 @@ struct TemplateEditorView: View {
                 name = template.name
                 category = template.category
                 content = template.content
+            } else if let source = sourceTemplate {
+                name = source.name
+                category = source.category
+                content = source.content
             }
         }
         .sheet(isPresented: $showingPlaceholderHelp) {
@@ -126,6 +142,31 @@ struct TemplateEditorView: View {
             template.category = category
             template.content = content.trimmingCharacters(in: .whitespaces)
             template.updatedAt = Date()
+        } else if let source = sourceTemplate {
+            // Create A/B variant
+            let groupId = source.variantGroup ?? UUID()
+
+            // Update source to be part of the group if it isn't already
+            if source.variantGroup == nil {
+                source.variantGroup = groupId
+                source.variantLetter = "A"
+            }
+
+            // Find next available variant letter
+            let existingVariants = allTemplates.filter { $0.variantGroup == groupId }
+            let usedLetters = Set(existingVariants.compactMap { $0.variantLetter })
+            let letters = ["A", "B", "C", "D", "E", "F"]
+            let nextLetter = letters.first { !usedLetters.contains($0) } ?? "B"
+
+            let variant = MessageTemplate(
+                name: name.trimmingCharacters(in: .whitespaces),
+                category: category,
+                content: content.trimmingCharacters(in: .whitespaces),
+                isBuiltIn: false,
+                variantGroup: groupId,
+                variantLetter: nextLetter
+            )
+            modelContext.insert(variant)
         } else {
             // Create new template
             let template = MessageTemplate(

@@ -11,6 +11,7 @@ import SwiftData
 struct PipelineView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
+    @Query private var allTemplates: [MessageTemplate]
     @State private var showingAddProspect = false
     @State private var selectedStage: FunnelStage?
 
@@ -55,7 +56,17 @@ struct PipelineView: View {
 
     private func moveToNextStage(_ prospect: Prospect) {
         withAnimation(.spring(response: 0.3)) {
+            let previousStage = prospect.stage
             prospect.moveToNextStage()
+
+            // Track conversion for A/B Script Tracking
+            if prospect.stage == .client && previousStage != .client {
+                if let templateId = prospect.lastTemplateId,
+                   let template = allTemplates.first(where: { $0.id == templateId }) {
+                    template.timesConverted += 1
+                    prospect.lastTemplateId = nil
+                }
+            }
         }
     }
 

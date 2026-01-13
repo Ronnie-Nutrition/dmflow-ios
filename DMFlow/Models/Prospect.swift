@@ -22,6 +22,9 @@ final class Prospect {
     var createdAt: Date
     var updatedAt: Date
 
+    // A/B Script Tracking - last template used for conversion attribution
+    var lastTemplateId: UUID? = nil
+
     init(
         id: UUID = UUID(),
         name: String,
@@ -33,7 +36,8 @@ final class Prospect {
         notes: String? = nil,
         isHotLead: Bool = false,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        lastTemplateId: UUID? = nil
     ) {
         self.id = id
         self.name = name
@@ -46,6 +50,7 @@ final class Prospect {
         self.isHotLead = isHotLead
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.lastTemplateId = lastTemplateId
     }
 
     var isOverdue: Bool {

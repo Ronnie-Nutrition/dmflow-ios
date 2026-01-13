@@ -16,6 +16,8 @@ struct TemplatesView: View {
     @State private var templateToEdit: MessageTemplate?
     @State private var showingDeleteConfirmation = false
     @State private var templateToDelete: MessageTemplate?
+    @State private var showingStats = false
+    @State private var templateToVariant: MessageTemplate?
 
     private var templatesByCategory: [TemplateCategory: [MessageTemplate]] {
         Dictionary(grouping: allTemplates, by: { $0.category })
@@ -58,6 +60,14 @@ struct TemplatesView: View {
                                     .tint(AppColors.primary)
                                 }
                             }
+                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                Button {
+                                    templateToVariant = template
+                                } label: {
+                                    Label("A/B Test", systemImage: "arrow.triangle.branch")
+                                }
+                                .tint(.purple)
+                            }
                     }
 
                     // Add custom template button in Custom section
@@ -76,6 +86,27 @@ struct TemplatesView: View {
         }
         .navigationTitle("Message Templates")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showingStats = true
+                } label: {
+                    Image(systemName: "chart.bar.fill")
+                }
+            }
+        }
+        .sheet(isPresented: $showingStats) {
+            NavigationStack {
+                TemplateStatsView()
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") {
+                                showingStats = false
+                            }
+                        }
+                    }
+            }
+        }
         .sheet(isPresented: $showingAddTemplate) {
             NavigationStack {
                 TemplateEditorView(mode: .create)
@@ -84,6 +115,11 @@ struct TemplatesView: View {
         .sheet(item: $templateToEdit) { template in
             NavigationStack {
                 TemplateEditorView(mode: .edit(template))
+            }
+        }
+        .sheet(item: $templateToVariant) { template in
+            NavigationStack {
+                TemplateEditorView(mode: .createVariant(template))
             }
         }
         .alert("Delete Template", isPresented: $showingDeleteConfirmation) {

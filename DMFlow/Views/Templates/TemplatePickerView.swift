@@ -10,6 +10,7 @@ import SwiftData
 
 struct TemplatePickerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \MessageTemplate.name) private var allTemplates: [MessageTemplate]
 
     let prospect: Prospect
@@ -82,6 +83,10 @@ struct TemplatePickerView: View {
                                 template: template,
                                 prospect: prospect,
                                 onUse: { message in
+                                    // Track template usage for A/B testing
+                                    template.timesSent += 1
+                                    prospect.lastTemplateId = template.id
+
                                     UIPasteboard.general.string = message
                                     let generator = UINotificationFeedbackGenerator()
                                     generator.notificationOccurred(.success)
