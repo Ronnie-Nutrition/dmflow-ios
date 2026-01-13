@@ -70,15 +70,21 @@ struct ContentView: View {
         .onAppear {
             importPendingProspects()
             syncUsageData()
+            updateNotifications()
+            updateWidget()
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 importPendingProspects()
                 syncUsageData()
+                updateNotifications()
+                updateWidget()
             }
         }
         .onChange(of: allProspects.count) { _, _ in
             syncUsageData()
+            updateNotifications()
+            updateWidget()
         }
         .alert("Prospects Imported", isPresented: $showingImportAlert) {
             Button("OK", role: .cancel) { }
@@ -135,6 +141,33 @@ struct ContentView: View {
 
     private func syncUsageData() {
         UsageTracker.shared.syncToSharedDefaults(prospectCount: allProspects.count)
+    }
+
+    private func updateNotifications() {
+        let notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+        guard notificationsEnabled else {
+            NotificationService.shared.clearBadge()
+            return
+        }
+
+        // Update badge count with overdue + today count
+        let overdueCount = allProspects.filter { $0.isOverdue }.count
+        let todayCount = allProspects.filter { $0.isDueToday }.count
+        let badgeCount = overdueCount + todayCount
+        NotificationService.shared.updateBadgeCount(badgeCount)
+
+        // Update morning reminder with current counts
+        let morningReminderTime = UserDefaults.standard.integer(forKey: "morningReminderTime")
+        let hour = morningReminderTime > 0 ? morningReminderTime : 9 // Default to 9 AM
+        NotificationService.shared.scheduleMorningReminder(
+            hour: hour,
+            overdueCount: overdueCount,
+            todayCount: todayCount
+        )
+    }
+
+    private func updateWidget() {
+        WidgetService.shared.updateWidget(with: allProspects)
     }
 }
 

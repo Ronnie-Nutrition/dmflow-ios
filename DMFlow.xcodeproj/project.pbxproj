@@ -27,6 +27,8 @@
 		A100002A001 /* PowerHourCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002A000 /* PowerHourCard.swift */; };
 		A100002B001 /* PowerHourSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002B000 /* PowerHourSummaryView.swift */; };
 		A1000046001 /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000046000 /* TemplateService.swift */; };
+		A1000047001 /* WidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000047000 /* WidgetService.swift */; };
+		A1000048001 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000048000 /* CalendarService.swift */; };
 		A1000051001 /* MessageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000051000 /* MessageTemplate.swift */; };
 		A1000052001 /* TemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000052000 /* TemplatesView.swift */; };
 		A1000053001 /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000053000 /* TemplateEditorView.swift */; };
@@ -45,6 +47,7 @@
 		A1000045001 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045000 /* PaywallView.swift */; };
 		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
 		FB8EB0BA2EF10C7300CF99AF /* DMFlowShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FBWIDGET01 /* DMFlowWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FBWIDGET00 /* DMFlowWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = FB8EB0AF2EF10C7300CF99AF;
 			remoteInfo = DMFlowShare;
+		};
+		FBWIDGET02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBWIDGET10;
+			remoteInfo = DMFlowWidget;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -65,6 +75,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				FB8EB0BA2EF10C7300CF99AF /* DMFlowShare.appex in Embed Foundation Extensions */,
+				FBWIDGET01 /* DMFlowWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,7 +123,10 @@
 		A1000044000 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		A1000045000 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		A1000047000 /* WidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetService.swift; sourceTree = "<group>"; };
+		A1000048000 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBWIDGET00 /* DMFlowWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -123,10 +137,18 @@
 			);
 			target = FB8EB0AF2EF10C7300CF99AF /* DMFlowShare */;
 		};
+		FBWIDGET03 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FBWIDGET10 /* DMFlowWidget */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FB8EB0B12EF10C7300CF99AF /* DMFlowShare */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FB8EB0BD2EF10C7400CF99AF /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DMFlowShare; sourceTree = "<group>"; };
+		FBWIDGET04 /* DMFlowWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FBWIDGET03 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DMFlowWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +166,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBWIDGET05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -152,6 +181,7 @@
 			children = (
 				A10000A0001 /* DMFlow */,
 				FB8EB0B12EF10C7300CF99AF /* DMFlowShare */,
+				FBWIDGET04 /* DMFlowWidget */,
 				FB02F5102EF107C600F7E7B0 /* Frameworks */,
 				A10000A0003 /* Products */,
 			);
@@ -181,6 +211,7 @@
 			children = (
 				A1000000100 /* DMFlow.app */,
 				FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */,
+				FBWIDGET00 /* DMFlowWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,6 +311,8 @@
 				A1000043000 /* UsageTracker.swift */,
 				A1000044000 /* SubscriptionManager.swift */,
 				A1000046000 /* TemplateService.swift */,
+				A1000047000 /* WidgetService.swift */,
+				A1000048000 /* CalendarService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -387,6 +420,7 @@
 			);
 			dependencies = (
 				FB8EB0B92EF10C7300CF99AF /* PBXTargetDependency */,
+				FBWIDGET06 /* PBXTargetDependency */,
 			);
 			name = DMFlow;
 			productName = DMFlow;
@@ -415,6 +449,28 @@
 			productReference = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		FBWIDGET10 /* DMFlowWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBWIDGET20 /* Build configuration list for PBXNativeTarget "DMFlowWidget" */;
+			buildPhases = (
+				FBWIDGET11 /* Sources */,
+				FBWIDGET05 /* Frameworks */,
+				FBWIDGET12 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FBWIDGET04 /* DMFlowWidget */,
+			);
+			name = DMFlowWidget;
+			packageProductDependencies = (
+			);
+			productName = DMFlowWidget;
+			productReference = FBWIDGET00 /* DMFlowWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -429,6 +485,9 @@
 						CreatedOnToolsVersion = 15.0;
 					};
 					FB8EB0AF2EF10C7300CF99AF = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					FBWIDGET10 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
@@ -448,6 +507,7 @@
 			targets = (
 				A10000B0000 /* DMFlow */,
 				FB8EB0AF2EF10C7300CF99AF /* DMFlowShare */,
+				FBWIDGET10 /* DMFlowWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -463,6 +523,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB8EB0AE2EF10C7300CF99AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBWIDGET12 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -502,6 +569,8 @@
 				A1000044001 /* SubscriptionManager.swift in Sources */,
 				A1000045001 /* PaywallView.swift in Sources */,
 				A1000046001 /* TemplateService.swift in Sources */,
+				A1000047001 /* WidgetService.swift in Sources */,
+				A1000048001 /* CalendarService.swift in Sources */,
 				A1000050001 /* AppColors.swift in Sources */,
 				A1000051001 /* MessageTemplate.swift in Sources */,
 				A1000052001 /* TemplatesView.swift in Sources */,
@@ -521,6 +590,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBWIDGET11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -528,6 +604,11 @@
 			isa = PBXTargetDependency;
 			target = FB8EB0AF2EF10C7300CF99AF /* DMFlowShare */;
 			targetProxy = FB8EB0B82EF10C7300CF99AF /* PBXContainerItemProxy */;
+		};
+		FBWIDGET06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBWIDGET10 /* DMFlowWidget */;
+			targetProxy = FBWIDGET02 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -783,6 +864,70 @@
 			};
 			name = Release;
 		};
+		FBWIDGET21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = DMFlowWidget/DMFlowWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DMFlow Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.DMFlowWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FBWIDGET22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = DMFlowWidget/DMFlowWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DMFlowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DMFlow Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.DMFlowWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -809,6 +954,15 @@
 			buildConfigurations = (
 				FB8EB0BB2EF10C7400CF99AF /* Debug */,
 				FB8EB0BC2EF10C7400CF99AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBWIDGET20 /* Build configuration list for PBXNativeTarget "DMFlowWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBWIDGET21 /* Debug */,
+				FBWIDGET22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

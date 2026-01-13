@@ -194,6 +194,18 @@ struct AddProspectView: View {
         )
 
         modelContext.insert(prospect)
+
+        // Schedule notification if follow-up is set and notifications are enabled
+        if hasFollowUp {
+            let notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+            if notificationsEnabled {
+                NotificationService.shared.scheduleFollowUpReminder(for: prospect)
+            }
+
+            // Sync to calendar if enabled
+            CalendarService.shared.syncFollowUp(for: prospect)
+        }
+
         dismiss()
     }
 }

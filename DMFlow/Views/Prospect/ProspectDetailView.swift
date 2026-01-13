@@ -241,10 +241,20 @@ struct ProspectDetailView: View {
                 "Next Follow-Up",
                 selection: Binding(
                     get: { prospect.nextFollowUp ?? Date() },
-                    set: { prospect.nextFollowUp = $0 }
+                    set: { newDate in
+                        prospect.nextFollowUp = newDate
+                        scheduleFollowUpNotification()
+                    }
                 ),
                 displayedComponents: .date
             )
+
+            Button("Clear Follow-Up", role: .destructive) {
+                prospect.nextFollowUp = nil
+                NotificationService.shared.cancelFollowUpReminder(for: prospect)
+                CalendarService.shared.removeFollowUpEvent(for: prospect)
+            }
+            .font(.caption)
 
             Toggle("Hot Lead", isOn: $prospect.isHotLead)
                 .tint(.orange)
@@ -442,8 +452,23 @@ struct ProspectDetailView: View {
     }
 
     private func deleteProspect() {
+        // Cancel any pending notifications for this prospect
+        NotificationService.shared.cancelFollowUpReminder(for: prospect)
+        // Remove calendar event
+        CalendarService.shared.removeFollowUpEvent(for: prospect)
         modelContext.delete(prospect)
         dismiss()
+    }
+
+    private func scheduleFollowUpNotification() {
+        // Schedule notification if enabled
+        let notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+        if notificationsEnabled {
+            NotificationService.shared.scheduleFollowUpReminder(for: prospect)
+        }
+
+        // Sync to calendar if enabled
+        CalendarService.shared.syncFollowUp(for: prospect)
     }
 }
 

@@ -29,15 +29,28 @@ final class NotificationService {
     func scheduleFollowUpReminder(for prospect: Prospect) {
         guard let followUpDate = prospect.nextFollowUp else { return }
 
+        // Cancel any existing reminder first
+        cancelFollowUpReminder(for: prospect)
+
+        // Don't schedule if the date is in the past
+        let calendar = Calendar.current
+        if calendar.startOfDay(for: followUpDate) < calendar.startOfDay(for: Date()) {
+            return
+        }
+
         let content = UNMutableNotificationContent()
         content.title = "Follow-up Reminder"
         content.body = "Time to follow up with \(prospect.name)"
+        if prospect.isHotLead {
+            content.body = "🔥 Time to follow up with \(prospect.name)"
+        }
         content.sound = .default
-        content.badge = 1
         content.userInfo = ["prospectId": prospect.id.uuidString]
 
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: followUpDate)
+        // Schedule for 9 AM on the follow-up date
+        var components = calendar.dateComponents([.year, .month, .day], from: followUpDate)
+        components.hour = 9
+        components.minute = 0
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 
@@ -51,6 +64,8 @@ final class NotificationService {
             #if DEBUG
             if let error = error {
                 print("Error scheduling notification: \(error)")
+            } else {
+                print("Scheduled follow-up notification for \(prospect.name) on \(followUpDate)")
             }
             #endif
         }

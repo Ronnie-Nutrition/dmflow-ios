@@ -49,5 +49,9 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>DMFlow can add your follow-up reminders to your calendar so you never miss a prospect.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>DMFlow can add your follow-up reminders to your calendar so you never miss a prospect.</string>
 </dict>
 </plist>

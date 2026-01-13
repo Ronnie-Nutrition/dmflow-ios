@@ -10,6 +10,7 @@ import SwiftUI
 struct ShareExtensionView: View {
     let prefillName: String?
     let prefillHandle: String?
+    let prefillPlatform: SharePlatform?
     let onSave: () -> Void
     let onCancel: () -> Void
 
@@ -22,6 +23,12 @@ struct ShareExtensionView: View {
 
     // Free tier limit
     private let freeProspectLimit = 15
+
+    // Haptic feedback generators
+    private let impactLight = UIImpactFeedbackGenerator(style: .light)
+    private let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+    private let notificationFeedback = UINotificationFeedbackGenerator()
+    private let selectionFeedback = UISelectionFeedbackGenerator()
 
     private var isAtLimit: Bool {
         let defaults = UserDefaults(suiteName: "group.com.ronnie.dmflow")
@@ -49,6 +56,9 @@ struct ShareExtensionView: View {
                         Label("Hot Lead", systemImage: "flame.fill")
                     }
                     .tint(.orange)
+                    .onChange(of: isHotLead) { _, _ in
+                        impactLight.impactOccurred()
+                    }
                 }
 
                 Section("Platform") {
@@ -58,6 +68,9 @@ struct ShareExtensionView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .onChange(of: platform) { _, _ in
+                        selectionFeedback.selectionChanged()
+                    }
                 }
 
                 Section("Stage") {
@@ -65,6 +78,9 @@ struct ShareExtensionView: View {
                         ForEach(ShareFunnelStage.allCases, id: \.self) { stage in
                             Text(stage.displayName).tag(stage)
                         }
+                    }
+                    .onChange(of: stage) { _, _ in
+                        selectionFeedback.selectionChanged()
                     }
                 }
 
@@ -77,7 +93,10 @@ struct ShareExtensionView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", action: onCancel)
+                    Button("Cancel") {
+                        impactLight.impactOccurred()
+                        onCancel()
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
@@ -88,11 +107,21 @@ struct ShareExtensionView: View {
                 }
             }
             .onAppear {
+                // Prepare haptic generators
+                impactLight.prepare()
+                impactMedium.prepare()
+                notificationFeedback.prepare()
+                selectionFeedback.prepare()
+
+                // Apply prefilled values
                 if let prefillName = prefillName {
                     name = prefillName
                 }
                 if let prefillHandle = prefillHandle {
                     handle = prefillHandle
+                }
+                if let prefillPlatform = prefillPlatform {
+                    platform = prefillPlatform
                 }
             }
         }
@@ -118,6 +147,9 @@ struct ShareExtensionView: View {
     }
 
     private func saveProspect() {
+        // Provide haptic feedback for save action
+        notificationFeedback.notificationOccurred(.success)
+
         // Save to shared UserDefaults (App Group)
         let defaults = UserDefaults(suiteName: "group.com.ronnie.dmflow")
 
@@ -174,6 +206,7 @@ enum ShareFunnelStage: String, CaseIterable {
     ShareExtensionView(
         prefillName: nil,
         prefillHandle: "johnsmith",
+        prefillPlatform: .instagram,
         onSave: {},
         onCancel: {}
     )

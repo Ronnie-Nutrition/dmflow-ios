@@ -7,15 +7,18 @@
 
 import SwiftUI
 import SwiftData
+import EventKit
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("morningReminderTime") private var morningReminderTime = 9
+    @AppStorage("calendarSyncEnabled") private var calendarSyncEnabled = false
     @State private var showingDeleteConfirmation = false
     @State private var exportFile: ExportFile?
     @State private var apiKey: String = AIService.getAPIKey()
+    @State private var calendarAuthDenied = false
 
     // Profile settings - initialized in onAppear
     @State private var profileName: String = ""
@@ -32,6 +35,7 @@ struct SettingsView: View {
                 profileSection
                 templatesSection
                 notificationsSection
+                calendarSection
                 aiSection
                 dataSection
                 aboutSection
@@ -144,12 +148,18 @@ struct SettingsView: View {
     private var notificationsSection: some View {
         Section {
             Toggle("Enable Notifications", isOn: $notificationsEnabled)
+                .onChange(of: notificationsEnabled) { _, newValue in
+                    handleNotificationToggle(enabled: newValue)
+                }
 
             if notificationsEnabled {
                 Picker("Morning Reminder", selection: $morningReminderTime) {
                     ForEach(6...12, id: \.self) { hour in
                         Text("\(hour):00 AM").tag(hour)
                     }
+                }
+                .onChange(of: morningReminderTime) { _, newHour in
+                    scheduleMorningReminder(hour: newHour)
                 }
 
                 HStack {
@@ -163,6 +173,115 @@ struct SettingsView: View {
             Text("Notifications")
         } footer: {
             Text("Get reminded about overdue follow-ups and daily summaries.")
+        }
+    }
+
+    private var calendarSection: some View {
+        Section {
+            Toggle("Sync to Calendar", isOn: $calendarSyncEnabled)
+                .onChange(of: calendarSyncEnabled) { _, newValue in
+                    handleCalendarToggle(enabled: newValue)
+                }
+
+            if calendarSyncEnabled {
+                HStack {
+                    Text("Calendar")
+                    Spacer()
+                    Text("DMFlow Follow-Ups")
+                        .foregroundStyle(.secondary)
+                }
+
+                let prospectsWithFollowUps = allProspects.filter { $0.nextFollowUp != nil }.count
+                HStack {
+                    Text("Synced Events")
+                    Spacer()
+                    Text("\(prospectsWithFollowUps)")
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            if calendarAuthDenied {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text("Calendar access denied. Enable in Settings.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        } header: {
+            Text("Calendar Integration")
+        } footer: {
+            Text("Add follow-up reminders to your iOS Calendar for visibility across all your devices.")
+        }
+    }
+
+    private func handleCalendarToggle(enabled: Bool) {
+        if enabled {
+            Task {
+                let granted = await CalendarService.shared.requestAccess()
+                if granted {
+                    // Sync all existing follow-ups
+                    CalendarService.shared.syncAllFollowUps(allProspects)
+                    await MainActor.run {
+                        calendarAuthDenied = false
+                    }
+                } else {
+                    // Permission denied
+                    await MainActor.run {
+                        calendarSyncEnabled = false
+                        calendarAuthDenied = true
+                    }
+                }
+            }
+        } else {
+            // Remove all calendar events
+            CalendarService.shared.removeAllEvents()
+        }
+    }
+
+    private func handleNotificationToggle(enabled: Bool) {
+        if enabled {
+            Task {
+                let granted = await NotificationService.shared.requestAuthorization()
+                if granted {
+                    // Schedule morning reminder with current counts
+                    scheduleMorningReminder(hour: morningReminderTime)
+                    // Schedule notifications for all existing follow-ups
+                    scheduleAllFollowUpNotifications()
+                } else {
+                    // Permission denied, turn off toggle
+                    await MainActor.run {
+                        notificationsEnabled = false
+                    }
+                }
+            }
+        } else {
+            // Cancel all notifications
+            NotificationService.shared.cancelMorningReminder()
+            cancelAllFollowUpNotifications()
+        }
+    }
+
+    private func scheduleMorningReminder(hour: Int) {
+        let overdueCount = allProspects.filter { $0.isOverdue }.count
+        let todayCount = allProspects.filter { $0.isDueToday }.count
+        NotificationService.shared.scheduleMorningReminder(
+            hour: hour,
+            overdueCount: overdueCount,
+            todayCount: todayCount
+        )
+    }
+
+    private func scheduleAllFollowUpNotifications() {
+        for prospect in allProspects where prospect.nextFollowUp != nil {
+            NotificationService.shared.scheduleFollowUpReminder(for: prospect)
+        }
+    }
+
+    private func cancelAllFollowUpNotifications() {
+        for prospect in allProspects {
+            NotificationService.shared.cancelFollowUpReminder(for: prospect)
         }
     }
 
