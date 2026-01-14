@@ -60,7 +60,7 @@ struct PaywallView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
 
-            Text("Unlock unlimited prospects and AI-powered message suggestions to supercharge your outreach.")
+            Text("Unlock powerful features to supercharge your outreach and grow your business faster.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -71,9 +71,11 @@ struct PaywallView: View {
     private var featuresSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             FeatureRow(icon: "person.3.fill", title: "Unlimited Prospects", description: "No limits on your pipeline")
+            FeatureRow(icon: "doc.text.fill", title: "Unlimited Templates", description: "Create as many scripts as you need")
             FeatureRow(icon: "sparkles", title: "AI Message Suggestions", description: "Context-aware follow-up messages")
-            FeatureRow(icon: "bolt.fill", title: "Unlimited AI Generation", description: "No daily or monthly limits")
-            FeatureRow(icon: "arrow.clockwise", title: "Regenerate Anytime", description: "Get fresh message ideas")
+            FeatureRow(icon: "arrow.triangle.branch", title: "A/B Script Analytics", description: "Track which messages convert best")
+            FeatureRow(icon: "chart.bar.doc.horizontal", title: "Advanced Stats", description: "Detailed metrics and conversion insights")
+            FeatureRow(icon: "square.and.arrow.up", title: "Export Data", description: "Export your prospects to CSV")
         }
         .padding()
         .background(Color(.systemBackground))
@@ -91,7 +93,7 @@ struct PaywallView: View {
                         product: yearly,
                         isSelected: selectedProduct?.id == yearly.id,
                         badge: "BEST VALUE",
-                        subtitle: "Save 50% - just $2.50/month"
+                        subtitle: "Save 52% - just $3.33/month"
                     ) {
                         selectedProduct = yearly
                     }

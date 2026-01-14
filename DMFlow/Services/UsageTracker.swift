@@ -13,10 +13,28 @@ final class UsageTracker {
     static let shared = UsageTracker()
 
     /// Free tier prospect limit
-    static let freeProspectLimit = 15
+    static let freeProspectLimit = 10
+
+    /// Free tier custom template limit
+    static let freeTemplateLimit = 3
 
     /// AI features are Pro-only - no free tier
     var canUseAI: Bool {
+        isPro
+    }
+
+    /// A/B Testing analytics are Pro-only
+    var canUseABAnalytics: Bool {
+        isPro
+    }
+
+    /// Advanced stats are Pro-only
+    var canUseAdvancedStats: Bool {
+        isPro
+    }
+
+    /// Export functionality is Pro-only
+    var canExport: Bool {
         isPro
     }
 
@@ -38,6 +56,22 @@ final class UsageTracker {
             return Int.max
         }
         return max(0, UsageTracker.freeProspectLimit - currentCount)
+    }
+
+    /// Check if user can add more custom templates
+    func canAddTemplate(currentCustomCount: Int) -> Bool {
+        if isPro {
+            return true
+        }
+        return currentCustomCount < UsageTracker.freeTemplateLimit
+    }
+
+    /// Get remaining template slots for free tier
+    func remainingTemplateSlots(currentCustomCount: Int) -> Int {
+        if isPro {
+            return Int.max
+        }
+        return max(0, UsageTracker.freeTemplateLimit - currentCustomCount)
     }
 
     // MARK: - Shared App Group Data (for Share Extension)

@@ -74,14 +74,14 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "4.99",
+          "displayPrice" : "6.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "pro_monthly",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Unlimited AI message suggestions",
+              "description" : "Unlimited prospects, templates, AI & analytics",
               "displayName" : "Pro Monthly",
               "locale" : "en_US"
             }
@@ -99,14 +99,14 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "29.99",
+          "displayPrice" : "39.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "pro_yearly",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Unlimited AI message suggestions - Save 50%",
+              "description" : "Unlimited prospects, templates, AI & analytics - Save 52%",
               "displayName" : "Pro Yearly",
               "locale" : "en_US"
             }

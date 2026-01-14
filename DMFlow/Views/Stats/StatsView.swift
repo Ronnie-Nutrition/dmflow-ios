@@ -13,6 +13,9 @@ struct StatsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allProspects: [Prospect]
     @State private var selectedPeriod: StatsPeriod = .week
+    @State private var showingPaywall = false
+
+    private let usageTracker = UsageTracker.shared
 
     enum StatsPeriod: String, CaseIterable {
         case week = "Week"
@@ -74,6 +77,9 @@ struct StatsView: View {
             }
             .background(AppColors.background)
             .navigationTitle("Stats")
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
+            }
         }
     }
 
@@ -142,20 +148,54 @@ struct StatsView: View {
 
     private var metricsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Detailed Metrics")
-                .font(.headline)
+            HStack {
+                Text("Detailed Metrics")
+                    .font(.headline)
 
-            VStack(spacing: 8) {
-                ForEach(FunnelStage.allCases) { stage in
-                    let count = allProspects.filter { $0.stage == stage }.count
-                    let avgDays = averageDaysInStage(stage)
+                Spacer()
 
-                    MetricRow(
-                        stage: stage,
-                        count: count,
-                        avgDays: avgDays
-                    )
+                if !usageTracker.canUseAdvancedStats {
+                    Label("Pro", systemImage: "lock.fill")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
                 }
+            }
+
+            if usageTracker.canUseAdvancedStats {
+                VStack(spacing: 8) {
+                    ForEach(FunnelStage.allCases) { stage in
+                        let count = allProspects.filter { $0.stage == stage }.count
+                        let avgDays = averageDaysInStage(stage)
+
+                        MetricRow(
+                            stage: stage,
+                            count: count,
+                            avgDays: avgDays
+                        )
+                    }
+                }
+            } else {
+                Button {
+                    showingPaywall = true
+                } label: {
+                    VStack(spacing: 12) {
+                        Image(systemName: "chart.bar.doc.horizontal")
+                            .font(.largeTitle)
+                            .foregroundStyle(.secondary)
+
+                        Text("Upgrade to Pro")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+
+                        Text("See detailed metrics, average days per stage, and conversion insights")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                }
+                .buttonStyle(.plain)
             }
         }
         .padding()

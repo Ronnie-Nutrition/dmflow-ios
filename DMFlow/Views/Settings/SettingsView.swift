@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import EventKit
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
@@ -21,6 +22,9 @@ struct SettingsView: View {
     @State private var exportFile: ExportFile?
     @State private var apiKey: String = AIService.getAPIKey()
     @State private var calendarAuthDenied = false
+    @State private var showingPaywall = false
+
+    private let usageTracker = UsageTracker.shared
 
     // Profile settings - initialized in onAppear
     @State private var profileName: String = ""
@@ -34,6 +38,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                subscriptionSection
                 profileSection
                 templatesSection
                 notificationsSection
@@ -55,6 +60,9 @@ struct SettingsView: View {
             .sheet(item: $exportFile) { file in
                 ShareSheet(items: [file.url])
             }
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
+            }
             .onAppear {
                 loadProfile()
             }
@@ -71,6 +79,62 @@ struct SettingsView: View {
         profileEmoji = profile.emojiUsage
         profileSamples = profile.sampleMessages
         profileLoaded = true
+    }
+
+    private var subscriptionSection: some View {
+        Section {
+            if usageTracker.isPro {
+                HStack {
+                    Label("DMFlow Pro", systemImage: "crown.fill")
+                        .foregroundStyle(.orange)
+                    Spacer()
+                    Text("Active")
+                        .foregroundStyle(.green)
+                        .fontWeight(.medium)
+                }
+
+                Button {
+                    Task {
+                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                            try? await AppStore.showManageSubscriptions(in: windowScene)
+                        }
+                    }
+                } label: {
+                    Label("Manage Subscription", systemImage: "creditcard")
+                }
+            } else {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Upgrade to Pro")
+                            .font(.headline)
+                        Text("Unlock unlimited prospects, templates, AI & analytics")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "crown.fill")
+                        .foregroundStyle(.orange)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showingPaywall = true
+                }
+
+                HStack {
+                    Text("Prospects")
+                    Spacer()
+                    Text("\(allProspects.count)/\(UsageTracker.freeProspectLimit)")
+                        .foregroundStyle(allProspects.count >= UsageTracker.freeProspectLimit ? .red : .secondary)
+                }
+                .font(.subheadline)
+            }
+        } header: {
+            Text("Subscription")
+        } footer: {
+            if !usageTracker.isPro {
+                Text("Free tier: \(UsageTracker.freeProspectLimit) prospects, \(UsageTracker.freeTemplateLimit) custom templates")
+            }
+        }
     }
 
     private var profileSection: some View {
@@ -395,9 +459,21 @@ struct SettingsView: View {
             }
 
             Button {
-                exportData()
+                if usageTracker.canExport {
+                    exportData()
+                } else {
+                    showingPaywall = true
+                }
             } label: {
-                Label("Export Data", systemImage: "square.and.arrow.up")
+                HStack {
+                    Label("Export Data", systemImage: "square.and.arrow.up")
+                    Spacer()
+                    if !usageTracker.isPro {
+                        Label("Pro", systemImage: "lock.fill")
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    }
+                }
             }
             .disabled(allProspects.isEmpty)
 

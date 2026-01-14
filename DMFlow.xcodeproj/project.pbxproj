@@ -26,9 +26,18 @@
 		A1000029001 /* PowerHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000029000 /* PowerHourView.swift */; };
 		A100002A001 /* PowerHourCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002A000 /* PowerHourCard.swift */; };
 		A100002B001 /* PowerHourSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002B000 /* PowerHourSummaryView.swift */; };
+		A1000030001 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030000 /* ProspectViewModel.swift */; };
+		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
+		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
+		A1000041001 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041000 /* CloudKitService.swift */; };
+		A1000042001 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000042000 /* AIService.swift */; };
+		A1000043001 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043000 /* UsageTracker.swift */; };
+		A1000044001 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000044000 /* SubscriptionManager.swift */; };
+		A1000045001 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045000 /* PaywallView.swift */; };
 		A1000046001 /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000046000 /* TemplateService.swift */; };
 		A1000047001 /* WidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000047000 /* WidgetService.swift */; };
 		A1000048001 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000048000 /* CalendarService.swift */; };
+		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
 		A1000051001 /* MessageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000051000 /* MessageTemplate.swift */; };
 		A1000052001 /* TemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000052000 /* TemplatesView.swift */; };
 		A1000053001 /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000053000 /* TemplateEditorView.swift */; };
@@ -38,15 +47,6 @@
 		A1000061001 /* ActivityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000061000 /* ActivityRowView.swift */; };
 		A1000062001 /* AddActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000062000 /* AddActivityView.swift */; };
 		A1000063001 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000063000 /* ActivityLogView.swift */; };
-		A1000030001 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030000 /* ProspectViewModel.swift */; };
-		A1000031001 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000 /* StatsViewModel.swift */; };
-		A1000040001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000040000 /* NotificationService.swift */; };
-		A1000041001 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041000 /* CloudKitService.swift */; };
-		A1000042001 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000042000 /* AIService.swift */; };
-		A1000043001 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043000 /* UsageTracker.swift */; };
-		A1000044001 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000044000 /* SubscriptionManager.swift */; };
-		A1000045001 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045000 /* PaywallView.swift */; };
-		A1000050001 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050000 /* AppColors.swift */; };
 		FB8EB0BA2EF10C7300CF99AF /* DMFlowShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FBWIDGET01 /* DMFlowWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FBWIDGET00 /* DMFlowWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -106,7 +106,18 @@
 		A1000029000 /* PowerHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourView.swift; sourceTree = "<group>"; };
 		A100002A000 /* PowerHourCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourCard.swift; sourceTree = "<group>"; };
 		A100002B000 /* PowerHourSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHourSummaryView.swift; sourceTree = "<group>"; };
+		A1000030000 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
+		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A1000041000 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
+		A1000042000 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		A1000043000 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		A1000044000 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		A1000045000 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		A1000046000 /* TemplateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateService.swift; sourceTree = "<group>"; };
+		A1000047000 /* WidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetService.swift; sourceTree = "<group>"; };
+		A1000048000 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		A1000051000 /* MessageTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTemplate.swift; sourceTree = "<group>"; };
 		A1000052000 /* TemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesView.swift; sourceTree = "<group>"; };
 		A1000053000 /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
@@ -116,18 +127,8 @@
 		A1000061000 /* ActivityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRowView.swift; sourceTree = "<group>"; };
 		A1000062000 /* AddActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityView.swift; sourceTree = "<group>"; };
 		A1000063000 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
-		A1000030000 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
-		A1000031000 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
-		A1000040000 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		A1000041000 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
-		A1000042000 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
-		A1000043000 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
-		A1000044000 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
-		A1000045000 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
-		A1000050000 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
-		A1000047000 /* WidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetService.swift; sourceTree = "<group>"; };
-		A1000048000 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBWATCH00 /* DMFlowWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMFlowWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBWIDGET00 /* DMFlowWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DMFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -150,6 +151,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FB8EB0B12EF10C7300CF99AF /* DMFlowShare */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FB8EB0BD2EF10C7400CF99AF /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DMFlowShare; sourceTree = "<group>"; };
+		FBWATCH04 /* DMFlowWatch */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DMFlowWatch; sourceTree = "<group>"; };
 		FBWIDGET04 /* DMFlowWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (FBWIDGET03 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DMFlowWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -162,6 +164,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB8EB0AD2EF10C7300CF99AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBWATCH05 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -184,6 +193,7 @@
 				A10000A0001 /* DMFlow */,
 				FB8EB0B12EF10C7300CF99AF /* DMFlowShare */,
 				FBWIDGET04 /* DMFlowWidget */,
+				FBWATCH04 /* DMFlowWatch */,
 				FB02F5102EF107C600F7E7B0 /* Frameworks */,
 				A10000A0003 /* Products */,
 			);
@@ -214,6 +224,7 @@
 				A1000000100 /* DMFlow.app */,
 				FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */,
 				FBWIDGET00 /* DMFlowWidget.appex */,
+				FBWATCH00 /* DMFlowWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,45 +266,6 @@
 				A10000A002A /* Activity */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		A10000A0028 /* PowerHour */ = {
-			isa = PBXGroup;
-			children = (
-				A1000029000 /* PowerHourView.swift */,
-				A100002A000 /* PowerHourCard.swift */,
-				A100002B000 /* PowerHourSummaryView.swift */,
-			);
-			path = PowerHour;
-			sourceTree = "<group>";
-		};
-		A10000A0029 /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				A1000052000 /* TemplatesView.swift */,
-				A1000053000 /* TemplateEditorView.swift */,
-				A1000054000 /* TemplatePickerView.swift */,
-				A1000055000 /* TemplateStatsView.swift */,
-			);
-			path = Templates;
-			sourceTree = "<group>";
-		};
-		A10000A002A /* Activity */ = {
-			isa = PBXGroup;
-			children = (
-				A1000061000 /* ActivityRowView.swift */,
-				A1000062000 /* AddActivityView.swift */,
-				A1000063000 /* ActivityLogView.swift */,
-			);
-			path = Activity;
-			sourceTree = "<group>";
-		};
-		A10000A0027 /* Paywall */ = {
-			isa = PBXGroup;
-			children = (
-				A1000045000 /* PaywallView.swift */,
-			);
-			path = Paywall;
 			sourceTree = "<group>";
 		};
 		A10000A0013 /* ViewModels */ = {
@@ -400,6 +372,45 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		A10000A0027 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				A1000045000 /* PaywallView.swift */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
+		A10000A0028 /* PowerHour */ = {
+			isa = PBXGroup;
+			children = (
+				A1000029000 /* PowerHourView.swift */,
+				A100002A000 /* PowerHourCard.swift */,
+				A100002B000 /* PowerHourSummaryView.swift */,
+			);
+			path = PowerHour;
+			sourceTree = "<group>";
+		};
+		A10000A0029 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				A1000052000 /* TemplatesView.swift */,
+				A1000053000 /* TemplateEditorView.swift */,
+				A1000054000 /* TemplatePickerView.swift */,
+				A1000055000 /* TemplateStatsView.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		A10000A002A /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				A1000061000 /* ActivityRowView.swift */,
+				A1000062000 /* AddActivityView.swift */,
+				A1000063000 /* ActivityLogView.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		FB02F5102EF107C600F7E7B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +463,28 @@
 			productReference = FB8EB0B02EF10C7300CF99AF /* DMFlowShare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		FBWATCH10 /* DMFlowWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBWATCH20 /* Build configuration list for PBXNativeTarget "DMFlowWatch" */;
+			buildPhases = (
+				FBWATCH11 /* Sources */,
+				FBWATCH05 /* Frameworks */,
+				FBWATCH12 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FBWATCH04 /* DMFlowWatch */,
+			);
+			name = DMFlowWatch;
+			packageProductDependencies = (
+			);
+			productName = DMFlowWatch;
+			productReference = FBWATCH00 /* DMFlowWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
 		FBWIDGET10 /* DMFlowWidget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBWIDGET20 /* Build configuration list for PBXNativeTarget "DMFlowWidget" */;
@@ -490,6 +523,9 @@
 					FB8EB0AF2EF10C7300CF99AF = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
+					FBWATCH10 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
 					FBWIDGET10 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
@@ -511,6 +547,7 @@
 				A10000B0000 /* DMFlow */,
 				FB8EB0AF2EF10C7300CF99AF /* DMFlowShare */,
 				FBWIDGET10 /* DMFlowWidget */,
+				FBWATCH10 /* DMFlowWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -526,6 +563,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB8EB0AE2EF10C7300CF99AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBWATCH12 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -588,6 +632,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB8EB0AC2EF10C7300CF99AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBWATCH11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -868,6 +919,64 @@
 			};
 			name = Release;
 		};
+		FBWATCH21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DMFlowWatch/DMFlowWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DMFlow Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ronnie.dmflow;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		FBWATCH22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DMFlowWatch/DMFlowWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D66KWXXM88;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DMFlow Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ronnie.dmflow;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronnie.dmflow.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		FBWIDGET21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -958,6 +1067,15 @@
 			buildConfigurations = (
 				FB8EB0BB2EF10C7400CF99AF /* Debug */,
 				FB8EB0BC2EF10C7400CF99AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBWATCH20 /* Build configuration list for PBXNativeTarget "DMFlowWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBWATCH21 /* Debug */,
+				FBWATCH22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

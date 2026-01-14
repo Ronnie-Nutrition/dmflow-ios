@@ -18,6 +18,13 @@ struct TemplatesView: View {
     @State private var templateToDelete: MessageTemplate?
     @State private var showingStats = false
     @State private var templateToVariant: MessageTemplate?
+    @State private var showingPaywall = false
+
+    private let usageTracker = UsageTracker.shared
+
+    private var customTemplateCount: Int {
+        allTemplates.filter { !$0.isBuiltIn }.count
+    }
 
     private var templatesByCategory: [TemplateCategory: [MessageTemplate]] {
         Dictionary(grouping: allTemplates, by: { $0.category })
@@ -73,10 +80,25 @@ struct TemplatesView: View {
                     // Add custom template button in Custom section
                     if category == .custom {
                         Button {
-                            showingAddTemplate = true
+                            if usageTracker.canAddTemplate(currentCustomCount: customTemplateCount) {
+                                showingAddTemplate = true
+                            } else {
+                                showingPaywall = true
+                            }
                         } label: {
-                            Label("Add Custom Template", systemImage: "plus.circle.fill")
-                                .foregroundStyle(AppColors.primary)
+                            HStack {
+                                Label("Add Custom Template", systemImage: "plus.circle.fill")
+                                    .foregroundStyle(AppColors.primary)
+
+                                Spacer()
+
+                                if !usageTracker.isPro {
+                                    let remaining = usageTracker.remainingTemplateSlots(currentCustomCount: customTemplateCount)
+                                    Text("\(remaining)/\(UsageTracker.freeTemplateLimit)")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
                         }
                     }
                 } header: {
@@ -89,9 +111,19 @@ struct TemplatesView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    showingStats = true
+                    if usageTracker.canUseABAnalytics {
+                        showingStats = true
+                    } else {
+                        showingPaywall = true
+                    }
                 } label: {
-                    Image(systemName: "chart.bar.fill")
+                    HStack(spacing: 4) {
+                        Image(systemName: "chart.bar.fill")
+                        if !usageTracker.isPro {
+                            Image(systemName: "lock.fill")
+                                .font(.caption2)
+                        }
+                    }
                 }
             }
         }
@@ -133,6 +165,9 @@ struct TemplatesView: View {
             }
         } message: {
             Text("Are you sure you want to delete this template? This cannot be undone.")
+        }
+        .sheet(isPresented: $showingPaywall) {
+            PaywallView()
         }
     }
 
