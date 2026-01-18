@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import os.log
 
 final class NotificationService {
     static let shared = NotificationService()
@@ -19,9 +20,7 @@ final class NotificationService {
                 .requestAuthorization(options: [.alert, .badge, .sound])
             return granted
         } catch {
-            #if DEBUG
-            print("Notification authorization error: \(error)")
-            #endif
+            Log.notifications.error("Authorization error: \(error.localizedDescription)")
             return false
         }
     }
@@ -61,13 +60,11 @@ final class NotificationService {
         )
 
         UNUserNotificationCenter.current().add(request) { error in
-            #if DEBUG
             if let error = error {
-                print("Error scheduling notification: \(error)")
+                Log.notifications.error("Error scheduling notification: \(error.localizedDescription)")
             } else {
-                print("Scheduled follow-up notification for \(prospect.name) on \(followUpDate)")
+                Log.notifications.debug("Scheduled follow-up notification")
             }
-            #endif
         }
     }
 
@@ -106,11 +103,9 @@ final class NotificationService {
         )
 
         UNUserNotificationCenter.current().add(request) { error in
-            #if DEBUG
             if let error = error {
-                print("Error scheduling morning reminder: \(error)")
+                Log.notifications.error("Error scheduling morning reminder: \(error.localizedDescription)")
             }
-            #endif
         }
     }
 

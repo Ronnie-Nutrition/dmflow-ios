@@ -7,6 +7,7 @@
 
 import Foundation
 import WidgetKit
+import os.log
 
 // MARK: - Widget Data Models (shared with widget extension)
 
@@ -101,9 +102,7 @@ final class WidgetService {
 
     private func saveWidgetData(_ data: WidgetData) {
         guard let defaults = UserDefaults(suiteName: appGroupId) else {
-            #if DEBUG
-            print("WidgetService: Failed to access App Group UserDefaults")
-            #endif
+            Log.widget.error("Failed to access App Group UserDefaults")
             return
         }
 
@@ -111,13 +110,9 @@ final class WidgetService {
             let encoded = try JSONEncoder().encode(data)
             defaults.set(encoded, forKey: "widgetData")
             defaults.synchronize()
-            #if DEBUG
-            print("WidgetService: Updated widget data - overdue: \(data.overdueCount), today: \(data.todayCount)")
-            #endif
+            Log.widget.debug("Updated widget data - overdue: \(data.overdueCount), today: \(data.todayCount)")
         } catch {
-            #if DEBUG
-            print("WidgetService: Failed to encode widget data: \(error)")
-            #endif
+            Log.widget.error("Failed to encode widget data: \(error.localizedDescription)")
         }
     }
 

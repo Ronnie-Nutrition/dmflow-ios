@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import os.log
 
 @Observable
 final class TemplateService {
@@ -76,9 +77,7 @@ final class TemplateService {
                 return
             }
         } catch {
-            #if DEBUG
-            print("Error checking for existing templates: \(error)")
-            #endif
+            Log.templates.error("Error checking for existing templates: \(error.localizedDescription)")
         }
 
         // Create built-in templates
@@ -95,9 +94,7 @@ final class TemplateService {
         do {
             try context.save()
         } catch {
-            #if DEBUG
-            print("Error saving built-in templates: \(error)")
-            #endif
+            Log.templates.error("Error saving built-in templates: \(error.localizedDescription)")
         }
     }
 

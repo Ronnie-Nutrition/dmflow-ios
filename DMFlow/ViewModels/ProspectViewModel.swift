@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import os.log
 
 @Observable
 final class ProspectViewModel {
@@ -89,9 +90,7 @@ final class ProspectViewModel {
         do {
             try modelContext.save()
         } catch {
-            #if DEBUG
-            print("Error saving context: \(error)")
-            #endif
+            Log.data.error("Error saving context: \(error.localizedDescription)")
         }
     }
 }

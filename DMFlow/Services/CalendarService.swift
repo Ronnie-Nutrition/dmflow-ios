@@ -7,6 +7,7 @@
 
 import Foundation
 import EventKit
+import os.log
 
 final class CalendarService {
     static let shared = CalendarService()
@@ -31,9 +32,7 @@ final class CalendarService {
                 return try await eventStore.requestAccess(to: .event)
             }
         } catch {
-            #if DEBUG
-            print("CalendarService: Failed to request access: \(error)")
-            #endif
+            Log.calendar.error("Failed to request access: \(error.localizedDescription)")
             return false
         }
     }
@@ -67,23 +66,17 @@ final class CalendarService {
         } else if let defaultSource = eventStore.defaultCalendarForNewEvents?.source {
             calendar.source = defaultSource
         } else {
-            #if DEBUG
-            print("CalendarService: No suitable calendar source found")
-            #endif
+            Log.calendar.warning("No suitable calendar source found")
             return nil
         }
 
         do {
             try eventStore.saveCalendar(calendar, commit: true)
             UserDefaults.standard.set(calendar.calendarIdentifier, forKey: calendarIdentifierKey)
-            #if DEBUG
-            print("CalendarService: Created DMFlow calendar")
-            #endif
+            Log.calendar.info("Created DMFlow calendar")
             return calendar
         } catch {
-            #if DEBUG
-            print("CalendarService: Failed to create calendar: \(error)")
-            #endif
+            Log.calendar.error("Failed to create calendar: \(error.localizedDescription)")
             return nil
         }
     }
@@ -92,15 +85,24 @@ final class CalendarService {
 
     /// Creates or updates a calendar event for a prospect's follow-up
     func syncFollowUp(for prospect: Prospect) {
-        guard UserDefaults.standard.bool(forKey: "calendarSyncEnabled") else { return }
-        guard authorizationStatus == .fullAccess || authorizationStatus == .authorized else { return }
+        guard UserDefaults.standard.bool(forKey: "calendarSyncEnabled") else {
+            Log.calendar.debug("Calendar sync disabled, skipping")
+            return
+        }
+        guard authorizationStatus == .fullAccess else {
+            Log.calendar.warning("Calendar access not granted. Status: \(String(describing: authorizationStatus.rawValue))")
+            return
+        }
         guard let followUpDate = prospect.nextFollowUp else {
             // No follow-up date, remove any existing event
             removeFollowUpEvent(for: prospect)
             return
         }
 
-        guard let calendar = getDMFlowCalendar() else { return }
+        guard let calendar = getDMFlowCalendar() else {
+            Log.calendar.error("Failed to get or create DMFlow calendar")
+            return
+        }
 
         let eventIdentifier = "\(eventIdentifierPrefix)\(prospect.id.uuidString)"
 
@@ -148,13 +150,9 @@ final class CalendarService {
         do {
             try eventStore.save(event, span: .thisEvent)
             UserDefaults.standard.set(event.eventIdentifier, forKey: eventIdentifier)
-            #if DEBUG
-            print("CalendarService: Saved follow-up event for \(prospect.name)")
-            #endif
+            Log.calendar.debug("Saved follow-up event for prospect")
         } catch {
-            #if DEBUG
-            print("CalendarService: Failed to save event: \(error)")
-            #endif
+            Log.calendar.error("Failed to save event: \(error.localizedDescription)")
         }
     }
 
@@ -170,20 +168,23 @@ final class CalendarService {
         do {
             try eventStore.remove(event, span: .thisEvent)
             UserDefaults.standard.removeObject(forKey: eventIdentifier)
-            #if DEBUG
-            print("CalendarService: Removed follow-up event for \(prospect.name)")
-            #endif
+            Log.calendar.debug("Removed follow-up event for prospect")
         } catch {
-            #if DEBUG
-            print("CalendarService: Failed to remove event: \(error)")
-            #endif
+            Log.calendar.error("Failed to remove event: \(error.localizedDescription)")
         }
     }
 
     /// Syncs all prospects with follow-ups to calendar
     func syncAllFollowUps(_ prospects: [Prospect]) {
-        guard UserDefaults.standard.bool(forKey: "calendarSyncEnabled") else { return }
-        guard authorizationStatus == .fullAccess || authorizationStatus == .authorized else { return }
+        Log.calendar.info("Attempting to sync \(prospects.count) prospects to calendar")
+        guard UserDefaults.standard.bool(forKey: "calendarSyncEnabled") else {
+            Log.calendar.debug("Calendar sync disabled")
+            return
+        }
+        guard authorizationStatus == .fullAccess else {
+            Log.calendar.warning("Calendar access not granted. Status: \(String(describing: authorizationStatus.rawValue))")
+            return
+        }
 
         for prospect in prospects {
             if prospect.nextFollowUp != nil {
@@ -191,9 +192,7 @@ final class CalendarService {
             }
         }
 
-        #if DEBUG
-        print("CalendarService: Synced \(prospects.filter { $0.nextFollowUp != nil }.count) follow-ups to calendar")
-        #endif
+        Log.calendar.info("Synced \(prospects.filter { $0.nextFollowUp != nil }.count) follow-ups to calendar")
     }
 
     /// Removes all DMFlow calendar events
@@ -212,14 +211,10 @@ final class CalendarService {
             do {
                 try eventStore.remove(event, span: .thisEvent)
             } catch {
-                #if DEBUG
-                print("CalendarService: Failed to remove event: \(error)")
-                #endif
+                Log.calendar.error("Failed to remove event: \(error.localizedDescription)")
             }
         }
 
-        #if DEBUG
-        print("CalendarService: Removed \(events.count) events")
-        #endif
+        Log.calendar.info("Removed \(events.count) events")
     }
 }

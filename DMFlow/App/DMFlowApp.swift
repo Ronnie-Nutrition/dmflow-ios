@@ -9,6 +9,7 @@
 import SwiftUI
 import SwiftData
 import UserNotifications
+import os.log
 
 @main
 struct DMFlowApp: App {
@@ -22,35 +23,66 @@ struct DMFlowApp: App {
             ProspectActivity.self
         ])
 
-        // Try CloudKit first, fall back to local if it fails
+        // Try CloudKit first, fall back to local, then in-memory as last resort
+        var container: ModelContainer?
+
+        // Attempt 1: CloudKit sync
         do {
             let cloudConfig = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false,
                 cloudKitDatabase: .automatic
             )
-            modelContainer = try ModelContainer(
+            container = try ModelContainer(
                 for: schema,
                 configurations: [cloudConfig]
             )
-            print("DMFlow: Using iCloud sync")
+            Log.cloudKit.info("Using iCloud sync")
         } catch {
-            // CloudKit failed - fall back to local storage
-            print("DMFlow: CloudKit failed (\(error.localizedDescription)), using local storage")
+            Log.cloudKit.warning("CloudKit failed, trying local storage: \(error.localizedDescription)")
+        }
+
+        // Attempt 2: Local persistent storage
+        if container == nil {
             do {
                 let localConfig = ModelConfiguration(
                     schema: schema,
                     isStoredInMemoryOnly: false,
                     cloudKitDatabase: .none
                 )
-                modelContainer = try ModelContainer(
+                container = try ModelContainer(
                     for: schema,
                     configurations: [localConfig]
                 )
+                Log.data.info("Using local storage")
             } catch {
-                fatalError("Could not initialize ModelContainer: \(error)")
+                Log.data.warning("Local storage failed, using in-memory: \(error.localizedDescription)")
             }
         }
+
+        // Attempt 3: In-memory fallback (data won't persist but app won't crash)
+        if container == nil {
+            do {
+                let memoryConfig = ModelConfiguration(
+                    schema: schema,
+                    isStoredInMemoryOnly: true,
+                    cloudKitDatabase: .none
+                )
+                container = try ModelContainer(
+                    for: schema,
+                    configurations: [memoryConfig]
+                )
+                Log.data.warning("Using in-memory storage (data will not persist)")
+            } catch {
+                Log.data.error("All storage options failed: \(error.localizedDescription)")
+            }
+        }
+
+        // Final fallback: create empty container (should never fail)
+        modelContainer = container ?? (try! ModelContainer(for: schema))
+
+        // Migrate API key from UserDefaults to Keychain
+        AIService.migrateAPIKeyIfNeeded()
 
         // Populate built-in templates on first launch
         let context = ModelContext(modelContainer)

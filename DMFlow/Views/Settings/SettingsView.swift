@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import EventKit
 import StoreKit
+import os.log
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
@@ -563,9 +564,7 @@ struct SettingsView: View {
             try csv.write(to: tempURL, atomically: true, encoding: .utf8)
             exportFile = ExportFile(url: tempURL)
         } catch {
-            #if DEBUG
-            print("Export failed: \(error)")
-            #endif
+            Log.data.error("Export failed: \(error.localizedDescription)")
         }
     }
 

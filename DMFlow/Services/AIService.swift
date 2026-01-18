@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - User Profile Types
 
@@ -69,9 +70,12 @@ struct UserProfile {
 final class AIService {
     static let shared = AIService()
 
+    private static let apiKeyKeychainKey = "openai_api_key"
+    private static let apiKeyUserDefaultsKey = "openai_api_key" // For migration only
+
     private var apiKey: String? {
-        // Check UserDefaults first, then environment variable as fallback
-        if let stored = UserDefaults.standard.string(forKey: "openai_api_key"), !stored.isEmpty {
+        // Check Keychain first, then environment variable as fallback
+        if let stored = KeychainService.readString(key: Self.apiKeyKeychainKey), !stored.isEmpty {
             return stored
         }
         return ProcessInfo.processInfo.environment["OPENAI_API_KEY"]
@@ -80,11 +84,31 @@ final class AIService {
     // MARK: - API Key Management
 
     static func setAPIKey(_ key: String) {
-        UserDefaults.standard.set(key, forKey: "openai_api_key")
+        do {
+            try KeychainService.save(key: apiKeyKeychainKey, string: key)
+            // Clean up old UserDefaults key if it exists
+            UserDefaults.standard.removeObject(forKey: apiKeyUserDefaultsKey)
+        } catch {
+            Log.ai.error("Failed to save API key to Keychain: \(error.localizedDescription)")
+        }
     }
 
     static func getAPIKey() -> String {
-        UserDefaults.standard.string(forKey: "openai_api_key") ?? ""
+        KeychainService.readString(key: apiKeyKeychainKey) ?? ""
+    }
+
+    /// Migrates API key from UserDefaults to Keychain (call once at app launch)
+    static func migrateAPIKeyIfNeeded() {
+        // Check if there's an old key in UserDefaults that needs migration
+        if let oldKey = UserDefaults.standard.string(forKey: apiKeyUserDefaultsKey), !oldKey.isEmpty {
+            // Only migrate if Keychain doesn't already have a key
+            if !KeychainService.exists(key: apiKeyKeychainKey) {
+                setAPIKey(oldKey)
+            } else {
+                // Keychain already has a key, just clean up UserDefaults
+                UserDefaults.standard.removeObject(forKey: apiKeyUserDefaultsKey)
+            }
+        }
     }
 
     // MARK: - User Profile Management
