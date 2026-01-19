@@ -58,15 +58,23 @@ final class CalendarService {
         let calendar = EKCalendar(for: .event, eventStore: eventStore)
         calendar.title = "DMFlow Follow-Ups"
 
+        // Log available sources for debugging
+        let sourceDescriptions = eventStore.sources.map { "\($0.title)(\($0.sourceType.rawValue))" }
+        Log.calendar.debug("Available calendar sources: \(sourceDescriptions)")
+
         // Find best source for local calendar
         if let localSource = eventStore.sources.first(where: { $0.sourceType == .local }) {
             calendar.source = localSource
+            Log.calendar.debug("Using local source: \(localSource.title)")
         } else if let iCloudSource = eventStore.sources.first(where: { $0.sourceType == .calDAV && $0.title == "iCloud" }) {
             calendar.source = iCloudSource
+            Log.calendar.debug("Using iCloud source: \(iCloudSource.title)")
         } else if let defaultSource = eventStore.defaultCalendarForNewEvents?.source {
             calendar.source = defaultSource
+            Log.calendar.debug("Using default source: \(defaultSource.title)")
         } else {
-            Log.calendar.warning("No suitable calendar source found")
+            let sourceTitles = eventStore.sources.map { $0.title }
+            Log.calendar.error("No suitable calendar source found. Sources: \(sourceTitles)")
             return nil
         }
 
@@ -89,8 +97,9 @@ final class CalendarService {
             Log.calendar.debug("Calendar sync disabled, skipping")
             return
         }
-        guard authorizationStatus == .fullAccess else {
-            Log.calendar.warning("Calendar access not granted. Status: \(String(describing: authorizationStatus.rawValue))")
+        let status = authorizationStatus
+        guard status == .fullAccess || status == .authorized else {
+            Log.calendar.warning("Calendar access not granted. Status: \(status.rawValue)")
             return
         }
         guard let followUpDate = prospect.nextFollowUp else {
@@ -148,9 +157,9 @@ final class CalendarService {
         event.alarms = [EKAlarm(absoluteDate: dateCalendar.date(bySettingHour: 9, minute: 0, second: 0, of: followUpDate) ?? followUpDate)]
 
         do {
-            try eventStore.save(event, span: .thisEvent)
+            try eventStore.save(event, span: .thisEvent, commit: true)
             UserDefaults.standard.set(event.eventIdentifier, forKey: eventIdentifier)
-            Log.calendar.debug("Saved follow-up event for prospect")
+            Log.calendar.info("Saved follow-up event for \(prospect.name) on \(followUpDate)")
         } catch {
             Log.calendar.error("Failed to save event: \(error.localizedDescription)")
         }
@@ -181,8 +190,9 @@ final class CalendarService {
             Log.calendar.debug("Calendar sync disabled")
             return
         }
-        guard authorizationStatus == .fullAccess else {
-            Log.calendar.warning("Calendar access not granted. Status: \(String(describing: authorizationStatus.rawValue))")
+        let status = authorizationStatus
+        guard status == .fullAccess || status == .authorized else {
+            Log.calendar.warning("Calendar access not granted. Status: \(status.rawValue)")
             return
         }
 

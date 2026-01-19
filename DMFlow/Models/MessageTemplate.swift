@@ -40,13 +40,13 @@ enum TemplateCategory: String, Codable, CaseIterable, Identifiable {
 
 @Model
 final class MessageTemplate {
-    var id: UUID
-    var name: String
-    var category: TemplateCategory
-    var content: String
-    var isBuiltIn: Bool
-    var createdAt: Date
-    var updatedAt: Date
+    var id: UUID = UUID()
+    var name: String = ""
+    var category: TemplateCategory = TemplateCategory.custom
+    var content: String = ""
+    var isBuiltIn: Bool = false
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 
     // A/B Script Tracking
     var timesSent: Int = 0

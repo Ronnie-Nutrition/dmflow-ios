@@ -11,10 +11,10 @@ import SwiftData
 /// Represents a logged interaction or activity with a prospect
 @Model
 final class ProspectActivity {
-    var id: UUID
-    var prospectId: UUID
-    var activityType: ActivityType
-    var timestamp: Date
+    var id: UUID = UUID()
+    var prospectId: UUID = UUID()
+    var activityType: ActivityType = ActivityType.note
+    var timestamp: Date = Date()
     var notes: String?
     var metadata: [String: String]?
 

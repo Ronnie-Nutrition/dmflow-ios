@@ -10,17 +10,17 @@ import SwiftData
 
 @Model
 final class Prospect {
-    var id: UUID
-    var name: String
+    var id: UUID = UUID()
+    var name: String = ""
     var handle: String?
-    var platform: Platform
-    var stage: FunnelStage
-    var lastContact: Date
+    var platform: Platform = Platform.instagram
+    var stage: FunnelStage = FunnelStage.new
+    var lastContact: Date = Date()
     var nextFollowUp: Date?
     var notes: String?
-    var isHotLead: Bool
-    var createdAt: Date
-    var updatedAt: Date
+    var isHotLead: Bool = false
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 
     // A/B Script Tracking - last template used for conversion attribution
     var lastTemplateId: UUID? = nil
