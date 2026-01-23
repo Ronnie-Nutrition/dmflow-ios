@@ -93,6 +93,7 @@ struct PaywallView: View {
                         product: yearly,
                         isSelected: selectedProduct?.id == yearly.id,
                         badge: "BEST VALUE",
+                        duration: "1 Year",
                         subtitle: "Save 52% - just $3.33/month"
                     ) {
                         selectedProduct = yearly
@@ -104,7 +105,8 @@ struct PaywallView: View {
                         product: monthly,
                         isSelected: selectedProduct?.id == monthly.id,
                         badge: nil,
-                        subtitle: "Cancel anytime"
+                        duration: "1 Month",
+                        subtitle: "Billed monthly, cancel anytime"
                     ) {
                         selectedProduct = monthly
                     }
@@ -158,7 +160,12 @@ struct PaywallView: View {
 
     private var termsSection: some View {
         VStack(spacing: 8) {
-            Text("Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Manage subscriptions in Settings.")
+            Text("DMFlow Pro includes unlimited prospects, unlimited templates, AI message suggestions, A/B analytics, advanced stats, and data export for the duration of your subscription.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Text("Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Payment will be charged to your Apple ID account. Manage or cancel your subscription in Settings > Apple ID > Subscriptions.")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -221,6 +228,7 @@ struct ProductButton: View {
     let product: Product
     let isSelected: Bool
     let badge: String?
+    let duration: String
     let subtitle: String
     let action: () -> Void
 
@@ -242,6 +250,10 @@ struct ProductButton: View {
                                 .clipShape(Capsule())
                         }
                     }
+                    Text(duration)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.primary)
                     Text(subtitle)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -249,9 +261,14 @@ struct ProductButton: View {
 
                 Spacer()
 
-                Text(product.displayPrice)
-                    .font(.title3)
-                    .fontWeight(.bold)
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text(product.displayPrice)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Text(duration == "1 Year" ? "/year" : "/month")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
 
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .foregroundStyle(isSelected ? .orange : .secondary)

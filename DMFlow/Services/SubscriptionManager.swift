@@ -20,7 +20,7 @@ final class SubscriptionManager {
 
     private let productIDs = [
         "com.ronnie.dmflow.pro.monthly",
-        "com.ronnie.dmflow.pro.yearly"
+        "com.ronnie.dmflow.pro.annual"
     ]
 
     var isPro: Bool {
@@ -32,7 +32,7 @@ final class SubscriptionManager {
     }
 
     var yearlyProduct: Product? {
-        products.first { $0.id == "com.ronnie.dmflow.pro.yearly" }
+        products.first { $0.id == "com.ronnie.dmflow.pro.annual" }
     }
 
     private var updateListenerTask: Task<Void, Error>?

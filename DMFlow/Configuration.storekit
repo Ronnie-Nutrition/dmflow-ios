@@ -102,18 +102,18 @@
           "displayPrice" : "39.99",
           "familyShareable" : false,
           "groupNumber" : 1,
-          "internalID" : "pro_yearly",
+          "internalID" : "pro_annual",
           "introductoryOffer" : null,
           "localizations" : [
             {
               "description" : "Unlimited prospects, templates, AI & analytics - Save 52%",
-              "displayName" : "Pro Yearly",
+              "displayName" : "Pro Annual",
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.ronnie.dmflow.pro.yearly",
+          "productID" : "com.ronnie.dmflow.pro.annual",
           "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "Pro Yearly",
+          "referenceName" : "Pro Annual",
           "subscriptionGroupID" : "DMFlowPro",
           "type" : "RecurringSubscription"
         }
